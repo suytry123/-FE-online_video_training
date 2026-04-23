@@ -39,6 +39,10 @@
             "styles": [
               "src/styles.css"
             ],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
             "scripts": []
           },
           "configurations": {
