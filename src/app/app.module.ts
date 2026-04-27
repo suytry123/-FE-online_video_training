@@ -15,7 +15,10 @@ import { CategoryFormComponent } from './components/category/category-form/categ
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './components/login/login.component';
-import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { CourseListComponent } from './components/course/course-list/course-list.component';
+import { CourseFormComponent } from './components/course/course-form/course-form.component';
+import { MainLayoutComponent } from './components/layout/main-layout/main-layout.component';
 
 @NgModule({
   declarations: [
@@ -24,11 +27,13 @@ import { RouterModule } from '@angular/router';
     NavbarComponent,
     FooterComponent,
     UserComponent,
+    MainLayoutComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    CommonModule,
     HttpClientModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({
@@ -38,7 +43,10 @@ import { RouterModule } from '@angular/router';
     }),
     CategoryListComponent,
     CategoryFormComponent,
-    LoginComponent
+    LoginComponent,
+    CourseListComponent,
+    CourseFormComponent
+
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }

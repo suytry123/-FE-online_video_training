@@ -19,6 +19,26 @@ export class UserService {
     return this.http.post(this.url + 'auth/signin', loginData, { observe: 'response' });
   }
 
+  signUp(signupData: any): Observable<any> {
+    return this.http.post(this.url + 'user/signup_user', signupData, { observe: 'response' });
+  }
+
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('token');
+  }
+
+   setToken(token: string) {
+    localStorage.setItem('token', token);
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+  }
+
   // getUserList(): Observable<any[]> {
   //   return this.http.get<any[]>(this.url + 'users');
   // }

@@ -69,14 +69,14 @@ export class CategoryListComponent implements OnInit {
   }
 
   loadCategories(): void {
-  this.categoryService.getCategoryList().subscribe({
-    next: (res) => {
-      this.categories = res.data || [];
-      console.log(res);
-      console.log(this.categories);
-    },
-    error: (err) => console.error(err)
-  });
-}
+    this.categoryService.getCategoryList().subscribe({
+      next: (res) => {
+        this.categories = res.data || [];
+        console.log(res);
+        console.log(this.categories);
+      },
+      error: (err) => console.error(err)
+    });
+  }
 
 }

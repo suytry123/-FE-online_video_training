@@ -14,7 +14,8 @@ import { CommonModule } from '@angular/common';
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
-  @Output() loginEvent = new EventEmitter<boolean>();
+  submitted = false;
+  // @Output() loginEvent = new EventEmitter<boolean>();
 
   constructor(private userService: UserService, private fb: FormBuilder, private router: Router) {}
 
@@ -34,6 +35,10 @@ export class LoginComponent implements OnInit {
   }
 
   signIn() {
+    this.submitted = true;
+    if (this.loginForm.invalid) {
+      return; 
+    }
     const loginData = this.loginForm.value;
     // console.log('Login data:', loginData);
     this.userService.login(loginData).subscribe({
@@ -41,13 +46,18 @@ export class LoginComponent implements OnInit {
         const token = res.headers.get("Authorization");
         if (token) {
           localStorage.setItem("token", token);
-          this.loginEvent.emit(true);
+          // this.loginEvent.emit(true);
           this.router.navigate(['/dashboard']);
+          // this.router.navigate(['/dashboard']);
         }
       },
       error: (err) => {
         console.log(err);
       }
     });
+  }
+
+  goSignup(){
+    this.router.navigate(['/signup']);
   }
 }

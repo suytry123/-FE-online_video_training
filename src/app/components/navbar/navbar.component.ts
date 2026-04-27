@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -9,7 +10,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class NavbarComponent implements OnInit{
   @Output() logoutEvent = new EventEmitter<boolean>();
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
     
@@ -18,5 +19,6 @@ export class NavbarComponent implements OnInit{
   signOut(){
     localStorage.removeItem("token");
     this.logoutEvent.emit(false);
+    this.router.navigate(['/login']);
   }
 }

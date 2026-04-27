@@ -1,0 +1,21 @@
+<div class="wrapper">
+  <app-sidebar></app-sidebar>
+
+  <div class="main">
+    <nav class="navbar navbar-expand navbar-light navbar-bg">
+      <a class="sidebar-toggle js-sidebar-toggle">
+        <i class="hamburger align-self-center"></i>
+      </a>
+
+      <app-navbar></app-navbar>
+    </nav>
+
+    <main class="content">
+      <div class="container-fluid p-0">
+        <router-outlet></router-outlet>
+      </div>
+    </main>
+
+    <app-footer></app-footer>
+  </div>
+</div>

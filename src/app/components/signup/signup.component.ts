@@ -24,6 +24,10 @@ export class SignupComponent {
     });
   }
 
+  get f() {
+    return this.signupForm.controls;
+  }
+
   onSubmit() {
     this.submitted = true;
     this.successMsg = '';
@@ -31,7 +35,7 @@ export class SignupComponent {
     if (this.signupForm.invalid) {
       return;
     }
-    this.userService.saveUser(this.signupForm.value).subscribe({
+    this.userService.signUp(this.signupForm.value).subscribe({
       next: () => {
         this.successMsg = 'Registration successful! You can now log in.';
         this.signupForm.reset();
