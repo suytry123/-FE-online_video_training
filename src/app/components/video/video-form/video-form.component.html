@@ -1,0 +1,31 @@
+<div class="container mt-4">
+  <div class="card shadow-lg border-0">
+    <div class="card-header bg-success text-white">
+      <h4>Add Video</h4>
+    </div>
+
+    <div class="card-body">
+      <form [formGroup]="videoForm">
+
+        <input type="hidden" formControlName="id" />
+        <div class="mb-3">
+          <label>Course ID</label>
+          <input class="form-control" type="number" formControlName="courseId">
+        </div>
+
+        <div class="mb-3">
+          <label>Title</label>
+          <input class="form-control" type="text" formControlName="title">
+        </div>
+
+        <div class="mb-3">
+          <label>Description</label>
+          <textarea class="form-control" formControlName="description"></textarea>
+        </div>
+
+        <button class="btn btn-success" (click)="save()">Save</button>
+
+      </form>
+    </div>
+  </div>
+</div>

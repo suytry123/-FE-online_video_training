@@ -2,14 +2,12 @@ import { HttpParams } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CourseService } from '../../../services/course.service';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-course-list',
-  standalone: true,
-  imports: [CommonModule],
   templateUrl: './course-list.component.html',
-  styleUrl: './course-list.component.css'
+  styleUrl: './course-list.component.css',
+  standalone: false
 })
 export class CourseListComponent {
    courses!: any[];

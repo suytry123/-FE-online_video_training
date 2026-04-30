@@ -7,7 +7,7 @@ import { HttpParams } from '@angular/common/http';
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
-  standalone: true
+  standalone: false
 })
 export class DashboardComponent implements OnInit {
   // totalCategories = 0;

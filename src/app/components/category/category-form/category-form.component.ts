@@ -1,16 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CategoryService } from '../../../services/category.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-category-form',
   templateUrl: './category-form.component.html',
   styleUrls: ['./category-form.component.css'],
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule]
+  standalone: false
 })
 export class CategoryFormComponent implements OnInit {
   categoryForm!: FormGroup;
@@ -27,7 +25,7 @@ export class CategoryFormComponent implements OnInit {
   ngOnInit(): void {
     this.categoryForm = this.fb.group({
       id: [''],
-      name: ['']
+      name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]]
     });
 
   //   this.route.paramMap.subscribe((paramMap: ParamMap) => {

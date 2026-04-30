@@ -2,18 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../../../services/category.service';
 import { HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-category-list',
   templateUrl: './category-list.component.html',
   styleUrls: ['./category-list.component.css'],
-  standalone: true,
-  imports: [CommonModule]
+  standalone: false
 })
 export class CategoryListComponent implements OnInit {
   categories!: any[];
-  loading: boolean = false;
+  // loading: boolean = false;
   totalItems: number = 0;
 
   constructor(private categoryService: CategoryService, private router: Router) {}

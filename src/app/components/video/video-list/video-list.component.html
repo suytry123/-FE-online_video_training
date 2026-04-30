@@ -1,0 +1,33 @@
+<div class="row">
+
+  <!-- LEFT: Video Player -->
+  <div class="col-md-8" *ngIf="selectedVideo">
+    <h4>{{ selectedVideo.title }}</h4>
+
+    <!-- YouTube -->
+    <iframe
+      width="100%"
+      height="400"
+      [src]="selectedVideo.videoUrl | safeUrl"
+      frameborder="0"
+      allowfullscreen>
+    </iframe>
+
+    <p>{{ selectedVideo.description }}</p>
+  </div>
+
+  <!-- RIGHT: Video List -->
+  <div class="col-md-4">
+    <ul class="list-group">
+      <li 
+        class="list-group-item"
+        *ngFor="let video of videos"
+        (click)="selectVideo(video)"
+        style="cursor: pointer"
+      >
+        {{ video.title }}
+      </li>
+    </ul>
+  </div>
+
+</div>

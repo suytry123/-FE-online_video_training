@@ -27,20 +27,20 @@
             <thead class="table-light">
               <tr>
                 <th class="text-center">#</th>
-                <th>ID</th>
-                <th>Name</th>
-                <th>AuthorID</th>
+                <th>CourseName</th>
                 <th>Price</th>
+                <th>CategoryName</th>
+                <th>AuthorName</th>
                 <th class="text-center">Action</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let course of courses; let i = index">
                 <td class="text-center">{{ i + 1 }}</td>
-                <td>{{course.categoryId}}</td>
                 <td>{{course.name}}</td>
-                 <td>{{course.authorId}}</td>
                 <td>{{course.price}}</td>
+                <td>{{course.category_name}}</td>
+                <td>{{course.author_name}}</td>
                 <td class="text-center">
                   <button class="btn btn-outline-primary btn-sm me-2 shadow-sm" (click)="edit(course.id)">
                     <i class="bi bi-pencil"></i> Edit
