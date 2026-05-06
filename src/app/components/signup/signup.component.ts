@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -8,13 +9,15 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./signup.component.css'],
   standalone: false
 })
-export class SignupComponent {
-  signupForm: FormGroup;
+export class SignupComponent implements OnInit {
+  signupForm!: FormGroup;
   submitted = false;
   successMsg = '';
   errorMsg = '';
 
-  constructor(private fb: FormBuilder, private userService: UserService) {
+  constructor(private fb: FormBuilder, private userService: UserService, private router: Router) {}
+
+  ngOnInit(): void {
     this.signupForm = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
@@ -24,6 +27,10 @@ export class SignupComponent {
 
   get f() {
     return this.signupForm.controls;
+  }
+
+  goToLogin(){
+    this.router.navigate(['/login']);
   }
 
   onSubmit() {

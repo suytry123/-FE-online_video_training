@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { VideoService } from '../../../services/video.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-video-list',
@@ -11,37 +11,54 @@ import { ActivatedRoute } from '@angular/router';
 export class VideoListComponent {
   videos: any[] = [];
   selectedVideo?: any;
+  selectedLink?: string;
+  courseId!: number;
 
   constructor(
     private videoService: VideoService,
     private route: ActivatedRoute,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       const id = params.get('id');
 
-      if (!id) {
-        console.error('Course ID is missing');
-        return;
+      if (id) {
+        this.loadVideos(Number(id));
       }
-
-      const courseId = Number(id);
-      this.loadVideos(courseId);
     });
   }
 
   loadVideos(courseId: number) {
     this.videoService.getVideosByCourse(courseId).subscribe({
-      next: (res) => {
-        this.videos = res;
-        this.selectedVideo = res.length > 0 ? res[0] : undefined;
+      next: (res: any) => {
+        const data = Array.isArray(res) ? res : res.list;
+
+        this.videos = data || [];
+
+        this.selectedVideo =
+          this.videos.length > 0 ? this.videos[0] : undefined;
+
+        if (this.selectedVideo) {
+          this.selectedLink = this.selectedVideo.video_link?.[0];
+        }
       },
       error: (err) => console.error(err),
     });
   }
 
+  // selectVideo(video: any) {
+  //   this.selectedVideo = video;
+  // }
+
   selectVideo(video: any) {
     this.selectedVideo = video;
+    this.selectedLink = video.video_link?.[0]; // default first
+  }
+
+  goToAddVideo() {
+    const courseId = this.route.snapshot.paramMap.get('id');
+    this.router.navigate(['/video/form', courseId]);
   }
 }

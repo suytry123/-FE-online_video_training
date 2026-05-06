@@ -1,0 +1,95 @@
+/* .card {
+  border-radius: 12px;
+}
+
+.list-group-item:hover {
+  background-color: #f1f1f1;
+}
+
+.list-group-item.active {
+  background-color: #198754;
+  border-color: #198754;
+  color: white;
+} */
+ /* Custom gradient for header */
+  .bg-gradient-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+  
+  /* Smooth hover effects */
+  .list-group-item-action {
+    transition: all 0.2s ease;
+  }
+  
+  .list-group-item-action:hover:not(.active) {
+    background-color: #f8f9fa;
+    transform: translateX(4px);
+  }
+  
+  .list-group-item-action.active:hover {
+    filter: brightness(1.05);
+  }
+  
+  /* Custom border radius */
+  .rounded-4 {
+    border-radius: 1rem !important;
+  }
+  
+  .rounded-top-4 {
+    border-top-left-radius: 1rem !important;
+    border-top-right-radius: 1rem !important;
+  }
+  
+  .rounded-bottom-4 {
+    border-bottom-left-radius: 1rem !important;
+    border-bottom-right-radius: 1rem !important;
+  }
+  
+  /* Playlist item active state text color fix */
+  .list-group-item-action.active small,
+  .list-group-item-action.active .fw-semibold {
+    color: white !important;
+  }
+  
+  .list-group-item-action.active .text-muted {
+    color: rgba(255, 255, 255, 0.7) !important;
+  }
+  
+  /* Custom scroll for playlist */
+  .list-group-flush {
+    max-height: 500px;
+    overflow-y: auto;
+  }
+  
+  /* Custom scrollbar */
+  .list-group-flush::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .list-group-flush::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  .list-group-flush::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 3px;
+  }
+  
+  .list-group-flush::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+  
+  /* Button active state */
+  .btn-outline-primary.active {
+    background-color: #0d6efd;
+    color: white;
+  }
+  
+  /* Animation for video selection */
+  .card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .card:hover {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+  }

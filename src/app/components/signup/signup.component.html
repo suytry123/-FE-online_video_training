@@ -1,9 +1,18 @@
-<div class="container mt-5">
+<div class="container">
   <div class="row justify-content-center">
     <div class="col-md-6 col-lg-5">
       <div class="card shadow-sm">
         <div class="card-body p-4">
           <h3 class="mb-3 text-center">Sign Up</h3>
+             <div class="mb-3">
+            <button 
+              type="button" 
+              class="btn btn-outline-secondary w-100" 
+              (click)="goToLogin()"
+              aria-label="Go back to login page">
+              <i class="fas fa-arrow-left me-2"></i>Back to Login
+            </button>
+          </div>
           <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
             <div class="mb-3">
               <label for="username" class="form-label">Username</label>

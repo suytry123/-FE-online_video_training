@@ -18,4 +18,11 @@ export class VideoService {
   getVideosByCourse(courseId: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.api}/course/${courseId}`);
   }
+
+  // addVideoLinks(videoId: number, links: string[]) {
+  //   return this.http.post(
+  //     `${this.api}/${videoId}/linkVideo`,
+  //     links
+  //   );
+  // }
 }

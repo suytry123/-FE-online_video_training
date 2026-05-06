@@ -13,6 +13,7 @@ import { authGuard } from './core/guards/auth.guard';
 import { MainLayoutComponent } from './components/layout/main-layout/main-layout.component';
 import { VideoFormComponent } from './components/video/video-form/video-form.component';
 import { VideoListComponent } from './components/video/video-list/video-list.component';
+import { ReportComponent } from './components/report/report.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -31,8 +32,8 @@ const routes: Routes = [
           { path: '', redirectTo: 'list', pathMatch: 'full' },
           { path: 'list', component: CategoryListComponent },
           { path: 'form', component: CategoryFormComponent },
-          { path: 'form/:id', component: CategoryFormComponent }
-        ]
+          { path: 'form/:id', component: CategoryFormComponent },
+        ],
       },
       {
         path: 'course',
@@ -40,24 +41,31 @@ const routes: Routes = [
           { path: '', redirectTo: 'list', pathMatch: 'full' },
           { path: 'list', component: CourseListComponent },
           { path: 'form', component: CourseFormComponent },
-          { path: 'form/:id', component: CourseFormComponent }
-        ]
+          { path: 'form/:id', component: CourseFormComponent },
+        ],
       },
       {
-         path: 'video',
-         children: [  
-            { path: 'form', component: VideoFormComponent },
-            { path: 'list', component: VideoListComponent },
-         ] 
+        path: 'video',
+        children: [
+          { path: '', redirectTo: 'list', pathMatch: 'full' },
+          { path: 'list/:id', component: VideoListComponent }, // must have courseId
+          // { path: 'list', component: VideoListComponent },
+          { path: 'form/:id', component: VideoFormComponent }, // pass courseId
+          { path: 'form', component: VideoFormComponent },
+        ],
+      },
+      {
+        path: 'report',
+        component: ReportComponent,
       },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-    ]
+    ],
   },
-  { path: '**', redirectTo: 'login' }
+  { path: '**', redirectTo: 'login' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

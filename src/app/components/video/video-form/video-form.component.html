@@ -6,25 +6,49 @@
 
     <div class="card-body">
       <form [formGroup]="videoForm">
-
         <input type="hidden" formControlName="id" />
-        <div class="mb-3">
-          <label>Course ID</label>
-          <input class="form-control" type="number" formControlName="courseId">
-        </div>
 
         <div class="mb-3">
           <label>Title</label>
-          <input class="form-control" type="text" formControlName="title">
+          <input class="form-control" type="text" formControlName="title" />
         </div>
 
         <div class="mb-3">
           <label>Description</label>
-          <textarea class="form-control" formControlName="description"></textarea>
+          <textarea
+            class="form-control"
+            formControlName="description"
+          ></textarea>
         </div>
 
-        <button class="btn btn-success" (click)="save()">Save</button>
+        <div formArrayName="videoLink">
+          <div
+            *ngFor="let link of videoLinks.controls; let i = index"
+            class="d-flex mb-2"
+          >
+            <input
+              class="form-control"
+              [formControlName]="i"
+              placeholder="Enter video link"
+            />
 
+            <button
+              type="button"
+              class="btn btn-danger ms-2"
+              (click)="removeLink(i)"
+            >
+              X
+            </button>
+          </div>
+        </div>
+
+        <button type="button" class="btn btn-secondary" (click)="addLink()">
+          + Add Link
+        </button>
+
+        <button type="button" class="btn btn-success" (click)="save()">
+          Save
+        </button>
       </form>
     </div>
   </div>

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { CourseService } from '../../services/course.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -8,5 +10,6 @@ import { Component } from '@angular/core';
 
 })
 export class SidebarComponent {
+
 
 }

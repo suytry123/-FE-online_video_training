@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -26,6 +27,7 @@ import { SignupComponent } from './components/signup/signup.component';
 import { VideoListComponent } from './components/video/video-list/video-list.component';
 import { IndexComponent } from './components/category/index/index.component';
 import { SafeUrlPipe } from './pipes/safe-url.pipe';
+import { ReportComponent } from './components/report/report.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,8 @@ import { SafeUrlPipe } from './pipes/safe-url.pipe';
     VideoListComponent,
     DashboardComponent,
     SignupComponent,
-    SafeUrlPipe
+    SafeUrlPipe,
+    ReportComponent
   ],
   imports: [
     BrowserModule,
@@ -53,6 +56,7 @@ import { SafeUrlPipe } from './pipes/safe-url.pipe';
     ReactiveFormsModule,
     RouterModule,
     CommonModule,
+    FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({

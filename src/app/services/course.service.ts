@@ -8,7 +8,7 @@ import { Observable } from 'rxjs/internal/Observable';
 export class CourseService {
 
   url = 'http://localhost:8080/api/courses';
-  
+
   constructor(private http: HttpClient) { }
 
    saveCourse(course: any) {

@@ -1,0 +1,50 @@
+<div class="container mt-4">
+
+  <h3 class="fw-bold mb-4">Reports Dashboard</h3>
+
+  <!-- USER REPORTS -->
+  <div class="card shadow border-0 mb-4">
+    <div class="card-header bg-dark text-white">
+      User Reports
+    </div>
+
+    <div class="card-body d-flex flex-wrap gap-2">
+
+      <button class="btn btn-primary" (click)="daily()">Daily</button>
+      <button class="btn btn-success" (click)="weekly()">Weekly</button>
+      <button class="btn btn-warning" (click)="monthly()">Monthly</button>
+      <button class="btn btn-danger" (click)="yearly()">Yearly</button>
+
+    </div>
+  </div>
+
+  <!-- CUSTOM REPORT -->
+  <div class="card shadow border-0 mb-4">
+    <div class="card-header bg-secondary text-white">
+      Custom Date Report
+    </div>
+
+    <div class="card-body d-flex gap-2 align-items-center flex-wrap">
+
+      <input type="datetime-local" [(ngModel)]="startDate" class="form-control" style="max-width: 220px;">
+      <input type="datetime-local" [(ngModel)]="endDate" class="form-control" style="max-width: 220px;">
+
+      <button class="btn btn-dark" (click)="between()">Download</button>
+
+    </div>
+  </div>
+
+  <!-- VIDEO REPORT -->
+  <div class="card shadow border-0">
+    <div class="card-header bg-primary text-white">
+      Video Report
+    </div>
+
+    <div class="card-body">
+      <button class="btn btn-outline-primary" (click)="video()">
+        Download Video Report
+      </button>
+    </div>
+  </div>
+
+</div>

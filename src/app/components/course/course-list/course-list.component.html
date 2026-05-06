@@ -48,6 +48,9 @@
                   <button class="btn btn-outline-danger btn-sm shadow-sm" (click)="delete(course.id)">
                     <i class="bi bi-trash"></i> Delete
                   </button>
+                  <button class="btn btn-primary btn-sm shadow-sm" (click)="goToVideos(course.id)">
+                    <i class="bi bi-eye"></i> View Videos
+                  </button>
                 </td>
               </tr>
               <tr *ngIf="!courses || courses.length === 0">
