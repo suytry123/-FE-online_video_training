@@ -1,0 +1,150 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Demo content styling */
+.content {
+  flex: 1;
+  text-align: center;
+  padding: 80px 20px;
+  color: white;
+}
+.content h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+.content p {
+  font-size: 1.1rem;
+  opacity: 0.95;
+}
+
+footer {
+  background: linear-gradient(
+    135deg,
+    #0f0c29 0%,
+    #302b63 50%,
+    #24243e 100%
+  ) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Animated gradient border on top */
+footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #ffd700, #ff8c00, #ffd700);
+  background-size: 200% 100%;
+  animation: borderGlow 3s linear infinite;
+}
+
+@keyframes borderGlow {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 200% 0%;
+  }
+}
+
+/* Footer logo/brand styling */
+footer h5 {
+  font-size: 1.8rem;
+  background: linear-gradient(135deg, #ffd700, #ff8c00);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 0.75rem;
+  display: inline-block;
+}
+
+/* Description text styling */
+footer p {
+  color: #c9c9e6 !important;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  max-width: 300px;
+}
+
+/* Link styling */
+footer a {
+  color: #e0e0e0 !important;
+  text-decoration: none !important;
+  transition: all 0.3s ease;
+  position: relative;
+  padding: 0.25rem 0;
+  font-weight: 500;
+}
+
+/* Animated underline for links */
+footer a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #ffd700, #ff8c00);
+  transition: width 0.3s ease;
+}
+
+footer a:hover::after {
+  width: 100%;
+}
+
+footer a:hover {
+  color: #ffd700 !important;
+  transform: translateY(-2px);
+}
+
+/* Add spacing between links */
+footer .text-md-end a {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  display: inline-block;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+  footer .text-md-end {
+    text-align: left !important;
+    margin-top: 1rem;
+  }
+
+  footer .text-md-end a {
+    margin-left: 0;
+    margin-right: 1.5rem;
+  }
+
+  footer p {
+    max-width: 100%;
+  }
+}
+
+/* Small decorative orb effect */
+footer::after {
+  content: "";
+  position: absolute;
+  bottom: -50px;
+  right: -50px;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.1), transparent);
+  border-radius: 50%;
+  pointer-events: none;
+}

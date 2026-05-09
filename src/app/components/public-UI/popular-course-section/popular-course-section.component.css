@@ -1,0 +1,177 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e9edf2 100%);
+  padding: 40px 0;
+}
+
+/* Demo container styling */
+.demo-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.section-title h2 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #1e2a3a, #0f172a);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ========== BEAUTIFUL COURSE CARD STYLES ========== */
+/* Your exact structure preserved - only visual enhancements added */
+
+.card {
+  background: white;
+  border-radius: 20px !important;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  position: relative;
+}
+
+/* Hover effect - lift card */
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Image styling */
+.card-img-top {
+  transition: transform 0.5s ease;
+  height: 220px;
+  object-fit: cover;
+}
+
+.card:hover .card-img-top {
+  transform: scale(1.05);
+}
+
+/* Image overlay gradient */
+.card {
+  position: relative;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #ff8c00, #ffd700, #ff8c00);
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+/* Card body padding */
+.card-body {
+  padding: 1.5rem !important;
+}
+
+/* Category badge styling */
+.badge {
+  background: linear-gradient(135deg, #ff8c00, #ffd700) !important;
+  padding: 0.5rem 1rem !important;
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+  border-radius: 12px !important;
+  box-shadow: 0 2px 8px rgba(255, 140, 0, 0.2);
+  display: inline-block;
+  width: fit-content;
+}
+
+/* Course title styling */
+.card-body h5 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+  transition: color 0.2s ease;
+}
+
+.card:hover h5 {
+  color: #ff8c00;
+}
+
+/* Instructor text styling */
+.card-body .text-muted {
+  color: #64748b !important;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Add instructor icon */
+.card-body .text-muted::before {
+  content: "\f007";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 400;
+  color: #ff8c00;
+}
+
+/* Price styling */
+.text-warning {
+  background: linear-gradient(135deg, #ff8c00, #ffd700);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent !important;
+  font-weight: 800;
+  font-size: 1.5rem;
+}
+
+/* Details button styling */
+.btn-dark {
+  background: linear-gradient(135deg, #1e293b, #0f172a) !important;
+  border: none !important;
+  padding: 0.5rem 1.25rem !important;
+  border-radius: 12px !important;
+  font-weight: 600;
+  font-size: 0.875rem;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-dark:hover {
+  transform: translateX(4px);
+  background: linear-gradient(135deg, #ff8c00, #ffd700) !important;
+  color: #1e293b !important;
+  box-shadow: 0 4px 12px rgba(255, 140, 0, 0.3);
+}
+
+/* Add arrow icon on button hover */
+.btn-dark:hover::after {
+  content: "\f061";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 600;
+  margin-left: 0.5rem;
+}
+
+/* Price and button alignment */
+.d-flex {
+  margin-top: 1rem;
+}

@@ -1,0 +1,95 @@
+<div class="container mt-4" *ngIf="course">
+  <!-- COURSE INFO -->
+
+  <div class="mb-4">
+    <h2 class="fw-bold">
+      {{ course.name }}
+    </h2>
+
+    <p class="text-muted">Instructor: {{ course.author_name }}</p>
+
+    <p class="text-muted">Category: {{ course.category_name }}</p>
+
+    <p>
+      {{ course.description }}
+    </p>
+
+    <div class="d-flex gap-3">
+      <button
+        class="btn"
+        [ngClass]="course.liked ? 'btn-danger' : 'btn-outline-danger'"
+        (click)="toggleLike()"
+      >
+        ❤️ {{ course.likes }}
+      </button>
+
+      <span class="btn btn-light"> 👁 {{ course.views }} </span>
+    </div>
+  </div>
+
+  <!-- VIDEO PLAYER -->
+
+  <div *ngIf="selectedVideo" class="card shadow-sm mb-4">
+    <div class="card-body">
+      <h4 class="fw-bold">
+        {{ selectedVideo.title }}
+      </h4>
+
+      <p class="text-muted">
+        {{ selectedVideo.description }}
+      </p>
+
+      <div class="ratio ratio-16x9 mb-3">
+        <iframe
+          *ngIf="selectedLink"
+          [src]="selectedLink | safeUrl"
+          frameborder="0"
+          allowfullscreen
+          class="w-100 h-100"
+        >
+        </iframe>
+      </div>
+
+      <!-- MULTIPLE LINKS -->
+
+      <div
+        *ngIf="(selectedVideo?.video_link?.length || 0) > 1"
+        class="d-flex gap-2 flex-wrap"
+      >
+        <button
+          class="btn btn-outline-primary btn-sm"
+          *ngFor="let link of selectedVideo?.video_link; let i = index"
+          (click)="selectedLink = link"
+        >
+          Part {{ i + 1 }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIDEO LIST -->
+
+  <div class="row">
+    <div class="col-md-4 mb-3" *ngFor="let video of course.videos">
+      <div
+        class="card h-100 shadow-sm"
+        style="cursor: pointer"
+        (click)="selectVideo(video)"
+      >
+        <div class="card-body">
+          <h5 class="fw-bold">
+            {{ video.title }}
+          </h5>
+
+          <p class="text-muted">
+            {{ video.description }}
+          </p>
+
+          <small class="text-primary">
+            {{ video.video_link.length || 0 }} part(s)
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
