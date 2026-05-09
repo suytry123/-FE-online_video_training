@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PublicCourseService } from '../../../services/public-services/public-course.service';
 import { Router } from '@angular/router';
 import { CourseSummary } from '../../../models/course-summary.model';
+import { UserService } from '../../../services/admin-services/user.service';
 
 @Component({
   selector: 'app-public-course-list',
@@ -15,6 +16,7 @@ export class PublicCourseListComponent implements OnInit {
   constructor(
     private courseService: PublicCourseService,
     private router: Router,
+    private userService: UserService,
   ) {}
 
   ngOnInit(): void {
@@ -65,6 +67,11 @@ export class PublicCourseListComponent implements OnInit {
   }
 
   goToDetail(course: CourseSummary): void {
+    if (!this.userService.isLoggedIn()) {
+      this.router.navigate(['/login']);
+
+      return;
+    }
     if (!course.viewed) {
       this.courseService.addView(course.id).subscribe({
         next: () => {

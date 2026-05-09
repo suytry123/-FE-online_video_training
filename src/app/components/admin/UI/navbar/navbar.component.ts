@@ -5,18 +5,19 @@ import { Router } from '@angular/router';
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
-  standalone: false
+  standalone: false,
 })
-export class NavbarComponent implements OnInit{
+export class NavbarComponent implements OnInit {
   @Output() logoutEvent = new EventEmitter<boolean>();
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    
+  
   }
 
-  signOut(){
-    localStorage.removeItem("token");
+  signOut() {
+    localStorage.removeItem('token');
+
     this.logoutEvent.emit(false);
     this.router.navigate(['/login']);
   }

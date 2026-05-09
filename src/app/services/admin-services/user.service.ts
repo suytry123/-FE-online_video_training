@@ -77,32 +77,6 @@ export class UserService {
     }
   }
 
-  getPermissions(): string[] {
-    const token = localStorage.getItem('token');
-
-    if (!token) {
-      return [];
-    }
-
-    try {
-      const payload = JSON.parse(atob(token.split('.')[1]));
-
-      const authorities = payload?.authorities;
-
-      if (!Array.isArray(authorities)) {
-        return [];
-      }
-
-      return authorities
-        .map((a: any) => a.authority)
-        .filter((a: string) => !a.startsWith('ROLE_'));
-    } catch (error) {
-      console.error('Invalid token:', error);
-
-      return [];
-    }
-  }
-
   // getUserList(): Observable<any[]> {
   //   return this.http.get<any[]>(this.url + 'users');
   // }
