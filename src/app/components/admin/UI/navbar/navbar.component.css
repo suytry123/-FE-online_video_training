@@ -1,0 +1,14 @@
+.navbar-collapse {
+  display: flex !important;
+  flex-basis: auto;
+  flex-grow: 0;
+}
+
+:host {
+  display: flex;
+  margin-left: auto;
+}
+
+.navbar-align {
+  margin-left: auto;
+}

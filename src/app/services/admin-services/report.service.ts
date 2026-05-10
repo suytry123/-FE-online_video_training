@@ -2,10 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ReportService {
-
   private baseUrl = 'http://localhost:8080/api/report';
 
   constructor(private http: HttpClient) {}
@@ -27,13 +26,18 @@ export class ReportService {
   }
 
   getBetween(start: string, end: string) {
-    return this.http.get(
-      `${this.baseUrl}/between?start=${start}&end=${end}`,
-      { responseType: 'blob' }
-    );
+    return this.http.get(`${this.baseUrl}/between?start=${start}&end=${end}`, {
+      responseType: 'blob',
+    });
   }
 
   getVideoReport() {
     return this.http.get(`${this.baseUrl}/video`, { responseType: 'blob' });
+  }
+
+  getDashboard(period: string) {
+    return this.http.get<any>(
+      `${this.baseUrl}/dashboard?period=${period}`,
+    );
   }
 }

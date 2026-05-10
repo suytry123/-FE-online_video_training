@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   submitted = false;
+  loginError: string = '';
   // @Output() loginEvent = new EventEmitter<boolean>();
 
   constructor(
@@ -37,6 +38,7 @@ export class LoginComponent implements OnInit {
   }
 
   signIn() {
+    this.loginError = '';
     this.submitted = true;
     if (this.loginForm.invalid) {
       return;
@@ -48,6 +50,10 @@ export class LoginComponent implements OnInit {
         const token = res.headers.get('Authorization');
         if (token) {
           localStorage.setItem('token', token);
+          localStorage.setItem(
+          'user',
+          JSON.stringify(res.body)
+        );
           const role = this.userService.getRole();
           console.log('User role:', role);
           if (role === 'ADMIN' || role === 'AUTHOR') {
@@ -60,7 +66,8 @@ export class LoginComponent implements OnInit {
         }
       },
       error: (err) => {
-        console.log(err);
+        // console.log(err);
+         this.loginError = 'Invalid username or password';
       },
     });
   }

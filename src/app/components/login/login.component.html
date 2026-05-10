@@ -79,6 +79,9 @@
                         Password must be at least 6 characters
                       </small>
                     </div>
+                    <div *ngIf="loginError" class="text-danger small mt-2">
+                      {{ loginError }}
+                    </div>
                   </div>
                   <div class="d-grid gap-2 mt-3">
                     <button type="submit" class="btn btn-lg btn-primary">

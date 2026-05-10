@@ -39,6 +39,7 @@ import { PopularCourseSectionComponent } from './components/public-UI/popular-co
 import { StatisticSectionComponent } from './components/public-UI/statistic-section/statistic-section.component';
 import { CtaSectionComponent } from './components/public-UI/cta-section/cta-section.component';
 import { PublicCourseListComponent } from './components/public-UI/public-course-list/public-course-list.component';
+import { NgChartsModule  } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -84,6 +85,7 @@ import { PublicCourseListComponent } from './components/public-UI/public-course-
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    NgChartsModule,
     ToastrModule.forRoot({
       timeOut: 15000, // 15 seconds
       closeButton: true,
