@@ -31,6 +31,10 @@ export class PublicCourseService {
     return this.http.delete(`${this.apiUrl}/${courseId}/like`);
   }
 
+  getStatistics() {
+    return this.http.get<any>('http://localhost:8080/api/public/statistics');
+  }
+
   // increaseView(id: number): Observable<any> {
   //   return this.http.post(`${this.apiUrl}/${id}/view`, {});
   // }

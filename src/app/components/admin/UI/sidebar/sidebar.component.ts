@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CourseService } from '../../../../services/admin-services/course.service';
+import { UserService } from '../../../../services/admin-services/user.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -10,6 +11,6 @@ import { CourseService } from '../../../../services/admin-services/course.servic
 
 })
 export class SidebarComponent {
-
+  constructor(public userService: UserService) {}
 
 }

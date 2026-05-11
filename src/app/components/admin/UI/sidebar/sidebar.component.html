@@ -7,7 +7,7 @@
     <ul class="sidebar-nav">
       <li class="sidebar-header">Pages</li>
 
-      <li class="sidebar-item" routerLinkActive="active">
+      <li class="sidebar-item" routerLinkActive="active" *ngIf="userService.getRole() === 'ADMIN'">
         <a class="sidebar-link" routerLink="user">
           <i class="align-middle" data-feather="sliders"></i>
           <span class="align-middle">User</span>
@@ -35,7 +35,7 @@
         </a>
       </li>
 
-      <li class="sidebar-item" routerLinkActive="active">
+      <li class="sidebar-item" routerLinkActive="active" *ngIf="userService.getRole() === 'ADMIN'">
         <a class="sidebar-link" routerLink="/admin/report">
           <i class="align-middle" data-feather="file-text"></i>
           <span class="align-middle">Reports</span>
