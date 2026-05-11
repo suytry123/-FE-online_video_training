@@ -1,0 +1,153 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background: #f8f9fa;
+  padding: 20px 0;
+}
+
+.container-fluid {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Header */
+.d-flex h2,
+.d-flex h3 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #f59e0b;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Back button */
+.btn-secondary,
+.btn-primary {
+  background: #64748b;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-secondary:hover,
+.btn-primary:hover {
+  background: #475569;
+  transform: translateY(-1px);
+}
+
+/* Card */
+.card {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: none;
+}
+
+/* Table */
+.table {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* Table header */
+.table-light th {
+  background: #f1f5f9;
+  color: #1e293b;
+  font-weight: 600;
+  padding: 14px 12px;
+  border-bottom: 2px solid #e2e8f0;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Table rows */
+.table tbody tr {
+  transition: all 0.2s;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.table tbody tr:hover {
+  background: #fefce8;
+}
+
+/* Table cells */
+.table td {
+  padding: 12px;
+  vertical-align: middle;
+  color: #334155;
+}
+
+/* ID column */
+.table td:first-child {
+  font-weight: 600;
+  color: #3b82f6;
+}
+
+/* Action column */
+.table th:last-child,
+.table td:last-child {
+  text-align: center;
+}
+
+/* Restore button */
+.btn-success {
+  background: #10b981;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-success:hover {
+  background: #059669;
+  transform: translateY(-1px);
+}
+
+/* Empty state */
+.text-center {
+  padding: 50px !important;
+  color: #94a3b8;
+  font-size: 0.95rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .d-flex {
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 12px;
+  }
+
+  .table {
+    font-size: 0.8rem;
+  }
+
+  .table th,
+  .table td {
+    padding: 8px 6px;
+  }
+
+  .btn-success {
+    padding: 4px 10px;
+    font-size: 0.75rem;
+  }
+}

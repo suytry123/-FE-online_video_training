@@ -18,6 +18,10 @@ import { PublicCourseDetailComponent } from './components/public-UI/public-cours
 import { HomeComponent } from './components/public-UI/home/home.component';
 import { PublicLayoutComponent } from './components/layout/public-layout/public-layout.component';
 import { PublicCourseListComponent } from './components/public-UI/public-course-list/public-course-list.component';
+import { adminGuard } from './core/guards/admin.guard';
+import { AdminCategoryTrashComponent } from './components/admin/UI/category/admin-category-trash/admin-category-trash.component';
+import { AdminCourseTrashComponent } from './components/admin/UI/course/admin-course-trash/admin-course-trash.component';
+import { AdminVideoTrashComponent } from './components/admin/UI/video/admin-video-trash/admin-video-trash.component';
 
 const routes: Routes = [
    {
@@ -38,7 +42,7 @@ const routes: Routes = [
     component: MainLayoutComponent,
     children: [
       { path: 'dashboard', component: AdminDashboardComponent },
-      { path: 'user', component: UserComponent },
+      { path: 'user', component: UserComponent, canActivate: [adminGuard] },
       {
         path: 'category',
         children: [
@@ -46,6 +50,7 @@ const routes: Routes = [
           { path: 'list', component: AdminCategoryListComponent },
           { path: 'form', component: AdminCategoryFormComponent },
           { path: 'form/:id', component: AdminCategoryFormComponent },
+          { path: 'trash', component: AdminCategoryTrashComponent },
         ],
       },
       {
@@ -55,19 +60,21 @@ const routes: Routes = [
           { path: 'list', component: AdminCourseListComponent },
           { path: 'form', component: AdminCourseFormComponent },
           { path: 'form/:id', component: AdminCourseFormComponent },
+          { path: 'trash', component: AdminCourseTrashComponent },
         ],
       },
       {
         path: 'video',
         children: [
-          { path: '', redirectTo: 'list', pathMatch: 'full' },
-          { path: 'list/:id', component: AdminVideoListComponent }, // must have courseId
+          // { path: '', redirectTo: 'list', pathMatch: 'full' },
+          { path: 'list/:courseId', component: AdminVideoListComponent }, // must have courseId
           // { path: 'list', component: AdminVideoListComponent },
-          { path: 'form/:id', component: AdminVideoFormComponent }, // pass courseId
-          { path: 'form', component: AdminVideoFormComponent },
+          { path: 'form/course/:courseId', component: AdminVideoFormComponent }, // pass courseId
+          { path: 'form/:id', component: AdminVideoFormComponent },
+          { path: 'trash', component: AdminVideoTrashComponent },
         ],
       },
-      { path: 'report', component: ReportComponent },
+      { path: 'report', component: ReportComponent, canActivate: [authGuard, adminGuard] },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
   },

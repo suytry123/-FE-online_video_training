@@ -19,7 +19,7 @@ export class AdminCourseListComponent {
 
   ngOnInit(): void {
     // let param = new HttpParams().append('pageLimit', 5);
-    this.loadCourses();
+    // this.loadCourses();
     let param = new HttpParams().append('_page', 1).append('_limit', 5);
     this.getCourses(param);
   }
@@ -65,6 +65,21 @@ export class AdminCourseListComponent {
 
   delete(id: number): void {
     if (!id) return;
+
+    this.courseService.deleteCourse(id).subscribe({
+      next: () => {
+        console.log('Deleted successfully');
+
+        let param = new HttpParams().append('_page', 1).append('_limit', 5);
+
+        this.getCourses(param);
+      },
+      error: (err) => console.error(err),
+    });
+  }
+
+  /*delete(id: number): void {
+    if (!id) return;
     this.courseService.deleteCourse(id).subscribe({
       next: () => {
         console.log('Deleted successfully');
@@ -72,9 +87,9 @@ export class AdminCourseListComponent {
       },
       error: (err) => console.error(err),
     });
-  }
+  }*/
 
-  loadCourses(): void {
+  /*loadCourses(): void {
     this.courseService.getCourseList().subscribe({
       next: (res) => {
         this.courses = res.data || [];
@@ -83,5 +98,5 @@ export class AdminCourseListComponent {
       },
       error: (err) => console.error(err),
     });
-  }
+  }*/
 }

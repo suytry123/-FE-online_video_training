@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { VideoService } from '../../../../../services/admin-services/video.service';
 import { ToastrService } from 'ngx-toastr';
@@ -24,8 +30,8 @@ export class AdminVideoFormComponent implements OnInit {
     this.videoForm = this.fb.group({
       id: [''],
       courseId: [''],
-      title: [''],
-      description: [''],
+      title: ['', [Validators.required, Validators.minLength(3)]],
+      description: ['', [Validators.required, Validators.minLength(10)]],
       videoLink: this.fb.array([]),
     });
 
@@ -49,8 +55,19 @@ export class AdminVideoFormComponent implements OnInit {
     return this.videoForm.get('videoLink') as FormArray;
   }
 
+  // addLink() {
+  //   this.videoLinks.push(this.fb.control(''));
+  // }
+
   addLink() {
-    this.videoLinks.push(this.fb.control(''));
+    this.videoLinks.push(
+      new FormControl('', [
+        Validators.required,
+        Validators.pattern(
+          '^(https:\\/\\/)?(www\\.)?(youtube\\.com\\/watch\\?v=|youtu\\.be\\/|youtube\\.com\\/embed\\/).+',
+        ),
+      ]),
+    );
   }
 
   removeLink(index: number) {
@@ -85,7 +102,11 @@ export class AdminVideoFormComponent implements OnInit {
   }
 
   save() {
-    if (this.videoForm.invalid) return;
+    // if (this.videoForm.invalid) return;
+    if (this.videoForm.invalid) {
+      this.videoForm.markAllAsTouched();
+      return;
+    }
     const formValue = this.videoForm.value;
     formValue.videoLink = formValue.videoLink.map((link: string) =>
       this.formatUrl(link),

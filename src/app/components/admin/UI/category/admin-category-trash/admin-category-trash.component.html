@@ -1,0 +1,42 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h3>Category Trash</h3>
+
+    <a routerLink="/admin/category/list" class="btn btn-secondary"> Back </a>
+  </div>
+
+  <div class="card shadow border-0">
+    <div class="card-body p-0">
+      <table class="table table-bordered table-hover">
+        <thead class="table-light">
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th width="150">Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let category of categories">
+            <td>{{ category.id }}</td>
+
+            <td>{{ category.name }}</td>
+
+            <td>
+              <button
+                class="btn btn-success btn-sm"
+                (click)="restore(category.id)"
+              >
+                Restore
+              </button>
+            </td>
+          </tr>
+
+          <tr *ngIf="categories.length === 0">
+            <td colspan="3" class="text-center">Trash is empty</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -54,6 +54,14 @@ export class CourseService {
     return this.http.put(`${this.url}/update/${id}`, formData);
   }
 
+  getTrash() {
+    return this.http.get(`${this.url}/trash`);
+  }
+
+  restore(id: number) {
+    return this.http.put(`${this.url}/${id}/restore`, {});
+  }
+
   private getAuthHeaders(): HttpHeaders {
     const token = localStorage.getItem('token');
     return token

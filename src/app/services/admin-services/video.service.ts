@@ -3,10 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class VideoService {
-
   private api = 'http://localhost:8080/api/videos';
 
   constructor(private http: HttpClient) {}
@@ -14,9 +13,21 @@ export class VideoService {
   saveVideo(data: any) {
     return this.http.post(this.api, data);
   }
-  
+
   getVideosByCourse(courseId: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.api}/course/${courseId}`);
+  }
+
+  deleteVideo(id: number) {
+    return this.http.delete(`${this.api}/${id}`);
+  }
+
+  getTrash() {
+    return this.http.get(`${this.api}/trash`);
+  }
+
+  restore(id: number) {
+    return this.http.put(`${this.api}/${id}/restore`, {});
   }
 
   // addVideoLinks(videoId: number, links: string[]) {

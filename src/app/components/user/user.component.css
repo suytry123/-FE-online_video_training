@@ -1,0 +1,136 @@
+body {
+  font-family: "Inter", sans-serif;
+  background: #f0f2f5;
+  padding: 40px 0;
+}
+
+/* Card styling */
+.card {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Card header */
+.card-header {
+  background: #28a745;
+  padding: 1.25rem 1.5rem;
+  border: none;
+}
+
+.card-header h4 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Card body */
+.card-body {
+  padding: 1.8rem;
+  background: white;
+}
+
+/* Form labels */
+.form-label {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+}
+
+/* Form inputs */
+.form-control {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 0.6rem 0.75rem;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.form-control:focus {
+  border-color: #28a745;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
+}
+
+/* Checkbox styling */
+.form-check {
+  display: flex;
+  align-items: center;
+  padding: 0.4rem 0.8rem;
+  margin: 0;
+  background: #f8f9fa;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.form-check:hover {
+  background: #e9ecef;
+}
+
+.form-check-input {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.form-check-input:checked {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.form-check-label {
+  margin-left: 0.5rem;
+  color: #555;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+/* Buttons */
+.btn-outline-secondary {
+  border: 1px solid #ddd;
+  color: #666;
+  background: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.btn-outline-secondary:hover {
+  background: #f8f9fa;
+  border-color: #999;
+}
+
+.btn-success {
+  background: #28a745;
+  border: none;
+  padding: 0.5rem 1.8rem;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.btn-success:hover {
+  background: #218838;
+}
+
+.btn-success i {
+  margin-right: 5px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .card-body {
+    padding: 1.2rem;
+  }
+
+  .d-flex.justify-content-end {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .d-flex.justify-content-end button {
+    width: 100%;
+  }
+}

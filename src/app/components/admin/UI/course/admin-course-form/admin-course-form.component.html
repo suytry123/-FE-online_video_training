@@ -112,22 +112,51 @@
               </div>
             </div>
             <div class="d-flex justify-content-end gap-2 mt-4">
-              <button
-                type="button"
-                class="btn btn-outline-secondary"
-                (click)="resetForm()"
-                [disabled]="isSubmitted"
+              <div
+                class="d-flex justify-content-between align-items-center mt-4"
               >
-                Reset
-              </button>
-              <button
-                type="button"
-                class="btn btn-primary"
-                (click)="saveCourse()"
-                [disabled]="isSubmitted"
-              >
-                <i class="bi bi-save"></i> Save
-              </button>
+                <!-- LEFT -->
+                <button
+                  type="button"
+                  class="btn btn-outline-dark"
+                  routerLink="/admin/course/list"
+                  [disabled]="isSubmitted"
+                >
+                  <i class="bi bi-arrow-left"></i>
+                  Back
+                </button>
+
+                <!-- RIGHT -->
+                <div class="d-flex gap-2">
+                  <button
+                    type="button"
+                    class="btn btn-outline-secondary"
+                    (click)="resetForm()"
+                    [disabled]="isSubmitted"
+                  >
+                    Reset
+                  </button>
+
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    (click)="saveCourse()"
+                    [disabled]="isSubmitted"
+                  >
+                    <span *ngIf="!isSubmitted">
+                      <i class="bi bi-save"></i>
+                      Save
+                    </span>
+
+                    <span *ngIf="isSubmitted">
+                      <span
+                        class="spinner-border spinner-border-sm me-2"
+                      ></span>
+                      Saving...
+                    </span>
+                  </button>
+                </div>
+              </div>
             </div>
           </form>
         </div>

@@ -22,7 +22,7 @@ export class AdminVideoListComponent {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
-      const id = params.get('id');
+      const id = params.get('courseId');
 
       if (id) {
         this.loadVideos(Number(id));
@@ -57,8 +57,37 @@ export class AdminVideoListComponent {
     this.selectedLink = video.video_link?.[0]; // default first
   }
 
+  // goToAddVideo() {
+  //   const courseId = this.route.snapshot.paramMap.get('id');
+  //   this.router.navigate(['/admin/video/form', courseId]);
+  // }
+
   goToAddVideo() {
-    const courseId = this.route.snapshot.paramMap.get('id');
-    this.router.navigate(['/admin/video/form', courseId]);
+    const courseId = this.route.snapshot.paramMap.get('courseId');
+
+    if (!courseId) {
+      console.error('courseId not found');
+      return;
+    }
+
+    this.router.navigate(['/admin/video/form/course', courseId]);
+  }
+
+  edit(id: number) {
+    this.router.navigate(['/admin/video/form', id]);
+  }
+
+  delete(id: number) {
+    if (confirm('Move this video to trash?')) {
+      this.videoService.deleteVideo(id).subscribe({
+        next: () => {
+          const courseId = Number(this.route.snapshot.paramMap.get('courseId'));
+
+          this.loadVideos(courseId);
+        },
+
+        error: (err) => console.error(err),
+      });
+    }
   }
 }

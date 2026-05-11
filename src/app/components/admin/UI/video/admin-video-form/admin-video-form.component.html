@@ -11,41 +11,92 @@
         <div class="mb-3">
           <label>Title</label>
           <input class="form-control" type="text" formControlName="title" />
+
+          <div
+            class="text-danger mt-1"
+            *ngIf="
+              videoForm.get('title')?.touched && videoForm.get('title')?.invalid
+            "
+          >
+            <small *ngIf="videoForm.get('title')?.errors?.['required']">
+              Title is required
+            </small>
+
+            <small *ngIf="videoForm.get('title')?.errors?.['minlength']">
+              Minimum 3 characters
+            </small>
+          </div>
         </div>
 
         <div class="mb-3">
           <label>Description</label>
+
           <textarea
             class="form-control"
             formControlName="description"
           ></textarea>
+
+          <div
+            class="text-danger mt-1"
+            *ngIf="
+              videoForm.get('description')?.touched &&
+              videoForm.get('description')?.invalid
+            "
+          >
+            <small *ngIf="videoForm.get('description')?.errors?.['required']">
+              Description is required
+            </small>
+
+            <small *ngIf="videoForm.get('description')?.errors?.['minlength']">
+              Minimum 10 characters
+            </small>
+          </div>
         </div>
 
         <div formArrayName="videoLink">
           <div
             *ngFor="let link of videoLinks.controls; let i = index"
-            class="d-flex mb-2"
+            class="mb-2"
           >
-            <input
-              class="form-control"
-              [formControlName]="i"
-              placeholder="Enter video link"
-            />
+            <div class="d-flex">
+              <input
+                class="form-control"
+                [formControlName]="i"
+                placeholder="Enter video link"
+              />
 
-            <button
-              type="button"
-              class="btn btn-danger ms-2"
-              (click)="removeLink(i)"
-            >
-              X
-            </button>
+              <button
+                type="button"
+                class="btn btn-danger ms-2"
+                (click)="removeLink(i)"
+              >
+                X
+              </button>
+            </div>
+
+            <div class="text-danger mt-1" *ngIf="link.touched && link.invalid">
+              <small *ngIf="link.errors?.['required']">
+                Video link is required
+              </small>
+
+              <small *ngIf="link.errors?.['pattern']">
+                Enter valid YouTube or Video URL
+              </small>
+            </div>
           </div>
         </div>
 
         <button type="button" class="btn btn-secondary" (click)="addLink()">
           + Add Link
         </button>
-
+        <button
+          type="button"
+          class="btn btn-outline-dark"
+          routerLink="/admin/course/list"
+        >
+          <i class="bi bi-arrow-left"></i>
+          Back
+        </button>
         <button type="button" class="btn btn-success" (click)="save()">
           Save
         </button>

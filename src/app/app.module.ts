@@ -40,6 +40,9 @@ import { StatisticSectionComponent } from './components/public-UI/statistic-sect
 import { CtaSectionComponent } from './components/public-UI/cta-section/cta-section.component';
 import { PublicCourseListComponent } from './components/public-UI/public-course-list/public-course-list.component';
 import { NgChartsModule  } from 'ng2-charts';
+import { AdminCategoryTrashComponent } from './components/admin/UI/category/admin-category-trash/admin-category-trash.component';
+import { AdminCourseTrashComponent } from './components/admin/UI/course/admin-course-trash/admin-course-trash.component';
+import { AdminVideoTrashComponent } from './components/admin/UI/video/admin-video-trash/admin-video-trash.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +77,10 @@ import { NgChartsModule  } from 'ng2-charts';
     StatisticSectionComponent,
     CtaSectionComponent,
     PublicCourseDetailComponent,
-    PublicCourseListComponent
+    PublicCourseListComponent,
+    AdminCategoryTrashComponent,
+    AdminCourseTrashComponent,
+    AdminVideoTrashComponent
   ],
   imports: [
     BrowserModule,

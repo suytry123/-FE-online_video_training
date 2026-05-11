@@ -1,95 +1,333 @@
-/* .card {
-  border-radius: 12px;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);
+  padding: 30px 0;
+}
+
+/* Container styling */
+.container {
+  max-width: 1400px;
+}
+
+/* Header title gradient */
+.container > div:first-child h3 {
+  background: linear-gradient(135deg, #1e293b, #3b82f6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-size: 1.8rem;
+}
+
+/* Header description */
+.container > div:first-child p {
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+/* Button styling - Trash button */
+.btn-warning {
+  background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+  border: none !important;
+  color: white !important;
+  font-weight: 600;
+  padding: 8px 24px !important;
+  border-radius: 12px !important;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.2);
+}
+
+.btn-warning:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(245, 158, 11, 0.3);
+  background: linear-gradient(135deg, #f59e0b, #f59e0b) !important;
+}
+
+/* Button styling - Add Video button */
+.btn-success {
+  background: linear-gradient(135deg, #10b981, #059669) !important;
+  border: none !important;
+  color: white !important;
+  font-weight: 600;
+  padding: 8px 24px !important;
+  border-radius: 12px !important;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
+}
+
+.btn-success:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.3);
+  background: linear-gradient(135deg, #10b981, #10b981) !important;
+}
+
+/* Card styling */
+.card {
+  border-radius: 20px !important;
+  transition: all 0.3s ease;
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Video player container */
+.ratio {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Title icon */
+.bi-camera-reels-fill {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Video title */
+.card-body h4 {
+  color: #1e293b;
+  font-size: 1.5rem;
+}
+
+/* Video parts section */
+.mb-4 .d-flex .bi-list-ul {
+  color: #3b82f6;
+  font-size: 1.2rem;
+}
+
+.mb-4 h6 {
+  color: #475569;
+  font-weight: 600;
+}
+
+/* Part buttons */
+.btn-outline-primary {
+  border: 1.5px solid #e2e8f0 !important;
+  color: #475569 !important;
+  background: white;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.btn-outline-primary:hover {
+  border-color: #3b82f6 !important;
+  background: #3b82f6 !important;
+  color: white !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+}
+
+.btn-primary.active {
+  background: linear-gradient(135deg, #3b82f6, #2563eb) !important;
+  border: none !important;
+  color: white !important;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+/* Description section */
+.border-top {
+  border-color: #e2e8f0 !important;
+}
+
+.bi-info-circle-fill {
+  color: #06b6d4;
+  font-size: 1.2rem;
+}
+
+/* Playlist card header */
+.card-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  border: none !important;
+  border-radius: 20px 20px 0 0 !important;
+  padding: 1rem 1.25rem !important;
+}
+
+.card-header .bi-play-btn-fill {
+  font-size: 1.2rem;
+}
+
+.card-header h6 {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.card-header .badge {
+  background: rgba(255, 255, 255, 0.2) !important;
+  color: white !important;
+  padding: 4px 10px !important;
+}
+
+/* Playlist items */
+.list-group-item {
+  border: none !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  padding: 1rem 1.25rem !important;
 }
 
 .list-group-item:hover {
-  background-color: #f1f1f1;
+  background: #f8fafc !important;
+  padding-left: 1.5rem !important;
 }
 
 .list-group-item.active {
-  background-color: #198754;
-  border-color: #198754;
-  color: white;
-} */
- /* Custom gradient for header */
-  .bg-gradient-primary {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #eff6ff, #e0f2fe) !important;
+  border-left: 4px solid #3b82f6 !important;
+  color: #1e293b !important;
+}
+
+/* Icon background in playlist */
+.bg-secondary.bg-opacity-10 {
+  background: #f1f5f9 !important;
+  border-radius: 10px !important;
+  transition: all 0.3s ease;
+}
+
+.list-group-item.active .bg-secondary.bg-opacity-10 {
+  background: linear-gradient(135deg, #3b82f6, #2563eb) !important;
+}
+
+.list-group-item.active .bg-secondary.bg-opacity-10 i {
+  color: white !important;
+}
+
+/* Action buttons in playlist */
+.btn-outline-light {
+  border: 1px solid #cbd5e1 !important;
+  color: #475569 !important;
+  transition: all 0.2s;
+  border-radius: 8px !important;
+  padding: 4px 8px !important;
+}
+
+.btn-outline-light:hover {
+  background: #3b82f6 !important;
+  border-color: #3b82f6 !important;
+  color: white !important;
+}
+
+.btn-outline-danger {
+  border: 1px solid #fee2e2 !important;
+  color: #ef4444 !important;
+  transition: all 0.2s;
+  border-radius: 8px !important;
+  padding: 4px 8px !important;
+  font-size: 0.8rem;
+}
+
+.btn-outline-danger:hover {
+  background: #ef4444 !important;
+  color: white !important;
+  border-color: #ef4444 !important;
+}
+
+/* Chevron icon */
+.bi-chevron-right {
+  transition: transform 0.2s;
+}
+
+.list-group-item:hover .bi-chevron-right {
+  transform: translateX(4px);
+}
+
+/* Empty state */
+.text-center.py-5 i {
+  opacity: 0.5;
+  font-size: 3rem;
+}
+
+.text-center.py-5 p {
+  color: #94a3b8;
+  margin-top: 0.5rem;
+}
+
+.btn-sm.btn-primary {
+  background: linear-gradient(135deg, #3b82f6, #2563eb) !important;
+  border: none !important;
+  border-radius: 10px !important;
+  padding: 8px 20px !important;
+}
+
+/* Scrollbar styling */
+.list-group {
+  max-height: 550px;
+  overflow-y: auto;
+}
+
+.list-group::-webkit-scrollbar {
+  width: 6px;
+}
+
+.list-group::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 10px;
+}
+
+.list-group::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+
+.list-group::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container > div:first-child {
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 1rem;
   }
-  
-  /* Smooth hover effects */
-  .list-group-item-action {
-    transition: all 0.2s ease;
+
+  .d-flex.gap-2 {
+    width: 100%;
   }
-  
-  .list-group-item-action:hover:not(.active) {
-    background-color: #f8f9fa;
-    transform: translateX(4px);
+
+  .btn-warning,
+  .btn-success {
+    flex: 1;
+    text-align: center;
   }
-  
-  .list-group-item-action.active:hover {
-    filter: brightness(1.05);
+
+  .card-body h4 {
+    font-size: 1.2rem;
   }
-  
-  /* Custom border radius */
-  .rounded-4 {
-    border-radius: 1rem !important;
+}
+
+/* Animation for cards */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-  
-  .rounded-top-4 {
-    border-top-left-radius: 1rem !important;
-    border-top-right-radius: 1rem !important;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  .rounded-bottom-4 {
-    border-bottom-left-radius: 1rem !important;
-    border-bottom-right-radius: 1rem !important;
-  }
-  
-  /* Playlist item active state text color fix */
-  .list-group-item-action.active small,
-  .list-group-item-action.active .fw-semibold {
-    color: white !important;
-  }
-  
-  .list-group-item-action.active .text-muted {
-    color: rgba(255, 255, 255, 0.7) !important;
-  }
-  
-  /* Custom scroll for playlist */
-  .list-group-flush {
-    max-height: 500px;
-    overflow-y: auto;
-  }
-  
-  /* Custom scrollbar */
-  .list-group-flush::-webkit-scrollbar {
-    width: 6px;
-  }
-  
-  .list-group-flush::-webkit-scrollbar-track {
-    background: #f1f1f1;
-  }
-  
-  .list-group-flush::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 3px;
-  }
-  
-  .list-group-flush::-webkit-scrollbar-thumb:hover {
-    background: #555;
-  }
-  
-  /* Button active state */
-  .btn-outline-primary.active {
-    background-color: #0d6efd;
-    color: white;
-  }
-  
-  /* Animation for video selection */
-  .card {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
-  
-  .card:hover {
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
-  }
+}
+
+.card {
+  animation: fadeInUp 0.4s ease backwards;
+}
+
+.col-lg-8 .card {
+  animation-delay: 0.1s;
+}
+
+.col-lg-4 .card {
+  animation-delay: 0.2s;
+}
