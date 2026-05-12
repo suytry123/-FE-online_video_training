@@ -1,0 +1,177 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background: #f8f9fa;
+}
+
+/* Hero section with margin spacing - NOT touching screen edges */
+.bg-dark {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%) !important;
+  position: relative;
+  overflow: hidden;
+  margin: 20px;
+  border-radius: 24px;
+}
+
+/* Subtle background pattern */
+.bg-dark::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: radial-gradient(
+    circle at 25% 50%,
+    rgba(255, 255, 255, 0.03) 1px,
+    transparent 1px
+  );
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+
+/* Container */
+.container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Badge styling */
+.badge {
+  background: #f59e0b !important;
+  color: #0f172a !important;
+  font-weight: 600;
+  font-size: 0.8rem;
+  padding: 6px 14px !important;
+  border-radius: 30px !important;
+  display: inline-block;
+}
+
+/* Heading styling */
+.display-4 {
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: white;
+}
+
+/* Paragraph styling */
+.lead {
+  color: #cbd5e1 !important;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+/* Primary button - Browse Courses */
+.btn-warning {
+  background: #f59e0b !important;
+  border: none !important;
+  color: #0f172a !important;
+  font-weight: 600;
+  padding: 12px 28px !important;
+  border-radius: 10px !important;
+  transition: all 0.2s;
+}
+
+.btn-warning:hover {
+  background: #d97706 !important;
+  transform: translateY(-2px);
+}
+
+/* Secondary button - Get Started */
+.btn-outline-light {
+  border: 2px solid #cbd5e1 !important;
+  color: white !important;
+  font-weight: 600;
+  padding: 12px 28px !important;
+  border-radius: 10px !important;
+  transition: all 0.2s;
+}
+
+.btn-outline-light:hover {
+  background: white !important;
+  color: #0f172a !important;
+  border-color: white !important;
+  transform: translateY(-2px);
+}
+
+/* Image styling */
+.img-fluid {
+  border-radius: 16px !important;
+  box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.3);
+  max-height: 400px;
+  width: 100%;
+  object-fit: cover;
+}
+
+/* Min height adjustment - NOT full screen */
+.min-vh-50 {
+  min-height: auto;
+  padding: 60px 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .bg-dark {
+    margin: 15px;
+    border-radius: 20px;
+  }
+
+  .display-4 {
+    font-size: 2rem;
+  }
+
+  .lead {
+    font-size: 1rem;
+  }
+
+  .btn-warning,
+  .btn-outline-light {
+    padding: 10px 20px !important;
+    font-size: 0.9rem;
+  }
+
+  .badge {
+    font-size: 0.7rem;
+    padding: 4px 10px !important;
+  }
+
+  .min-vh-50 {
+    padding: 40px 0;
+  }
+}
+
+/* Animation for content */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.col-lg-6 {
+  animation: fadeInUp 0.5s ease backwards;
+}
+
+.col-lg-6:first-child {
+  animation-delay: 0.1s;
+}
+
+.col-lg-6:last-child {
+  animation-delay: 0.2s;
+}
+
+/* Body padding to prevent content touching edges */
+body {
+  padding: 0;
+  margin: 0;
+}
