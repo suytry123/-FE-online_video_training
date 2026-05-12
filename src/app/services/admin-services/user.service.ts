@@ -45,7 +45,42 @@ export class UserService {
     localStorage.removeItem('token');
   }
 
-  getRole(): string | null {
+  getRoles(): string[] {
+  const token = localStorage.getItem('token');
+
+  if (!token) {
+    return [];
+  }
+
+  try {
+
+    const payload = JSON.parse(
+      atob(token.split('.')[1])
+    );
+
+    const authorities = payload?.authorities;
+
+    if (!Array.isArray(authorities)) {
+      return [];
+    }
+
+    return authorities
+      .filter((a: any) =>
+        a.authority?.startsWith('ROLE_')
+      )
+      .map((a: any) =>
+        a.authority.replace('ROLE_', '')
+      );
+
+  } catch (error) {
+
+    console.error('Invalid token:', error);
+
+    return [];
+  }
+}
+
+  /*getRole(): string | null {
     const token = localStorage.getItem('token');
 
     if (!token) {
@@ -75,7 +110,7 @@ export class UserService {
 
       return null;
     }
-  }
+  }*/
 
   // getUserList(): Observable<any[]> {
   //   return this.http.get<any[]>(this.url + 'users');

@@ -54,9 +54,10 @@ export class LoginComponent implements OnInit {
           'user',
           JSON.stringify(res.body)
         );
-          const role = this.userService.getRole();
-          console.log('User role:', role);
-          if (role === 'ADMIN' || role === 'AUTHOR') {
+          const roles = this.userService.getRoles();
+          console.log('User roles:', roles);
+          // if (role === 'ADMIN' || role === 'AUTHOR') {
+          if(roles.includes('ADMIN') || roles.includes('AUTHOR')) {
             this.router.navigate(['/admin/dashboard']);
           } else {
             this.router.navigate(['/']);

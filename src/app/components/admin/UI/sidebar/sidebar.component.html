@@ -7,41 +7,77 @@
     <ul class="sidebar-nav">
       <li class="sidebar-header">Pages</li>
 
-      <li class="sidebar-item" routerLinkActive="active" *ngIf="userService.getRole() === 'ADMIN'">
+      <li
+        class="sidebar-item"
+        routerLinkActive="active"
+        *ngIf="userService.getRoles().includes('ADMIN')"
+      >
         <a class="sidebar-link" routerLink="user">
           <i class="align-middle" data-feather="sliders"></i>
           <span class="align-middle">User</span>
         </a>
       </li>
 
-      <li class="sidebar-item" routerLinkActive="active">
+      <li
+        class="sidebar-item"
+        routerLinkActive="active"
+        *ngIf="
+          userService.getRoles().includes('ADMIN') ||
+          userService.getRoles().includes('AUTHOR')
+        "
+      >
         <a class="sidebar-link" routerLink="/admin/category/list">
           <i class="align-middle" data-feather="grid"></i>
           <span class="align-middle">Category</span>
         </a>
       </li>
 
-      <li class="sidebar-item" routerLinkActive="active">
+      <li
+        class="sidebar-item"
+        routerLinkActive="active"
+        *ngIf="
+          userService.getRoles().includes('ADMIN') ||
+          userService.getRoles().includes('AUTHOR')
+        "
+      >
         <a class="sidebar-link" routerLink="/admin/course/list">
           <i class="align-middle" data-feather="book"></i>
           <span class="align-middle">Course</span>
         </a>
       </li>
 
-      <li class="sidebar-item" routerLinkActive="active">
+      <li class="sidebar-item" *ngIf="userService.getRoles().includes('USER')">
+        <a class="sidebar-link" routerLink="/">
+          <i class="align-middle" data-feather="home"></i>
+          <span class="align-middle">View Website</span>
+        </a>
+      </li>
+
+      <!-- <li
+        class="sidebar-item"
+        routerLinkActive="active"
+        *ngIf="
+          userService.getRoles().includes('ADMIN') ||
+          userService.getRoles().includes('AUTHOR')
+        "
+      >
         <a class="sidebar-link" [routerLink]="['/admin/video/list', 1]">
           <i class="align-middle" data-feather="video"></i>
           <span class="align-middle">Video</span>
         </a>
-      </li>
+      </li> -->
 
-      <li class="sidebar-item" routerLinkActive="active" *ngIf="userService.getRole() === 'ADMIN'">
+      <li
+        class="sidebar-item"
+        routerLinkActive="active"
+        *ngIf="userService.getRoles().includes('ADMIN')"
+      >
         <a class="sidebar-link" routerLink="/admin/report">
           <i class="align-middle" data-feather="file-text"></i>
           <span class="align-middle">Reports</span>
         </a>
       </li>
-      
+
       <li class="sidebar-header">Plugins & Addons</li>
 
       <li class="sidebar-item">
