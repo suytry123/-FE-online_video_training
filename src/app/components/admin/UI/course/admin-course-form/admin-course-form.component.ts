@@ -8,7 +8,7 @@ import {
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CourseService } from '../../../../../services/admin-services/course.service';
-import { CommonModule } from '@angular/common';
+import { HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-admin-course-form',
@@ -20,6 +20,7 @@ export class AdminCourseFormComponent implements OnInit {
   courseForm!: FormGroup;
   isSubmitted = false;
   courseId!: number;
+  categories: any[] = [];
   selectedFile!: File;
   previewUrl: any = null;
 
@@ -42,10 +43,13 @@ export class AdminCourseFormComponent implements OnInit {
           Validators.maxLength(100),
         ],
       ],
-      authorId: [null, [Validators.required, Validators.min(1)]],
+      courseDescription: ['', [Validators.required, Validators.minLength(10)]],
       price: [null, [Validators.required, Validators.min(0)]],
       imageCover: [''],
     });
+
+    this.loadCategories();
+
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       const id = paramMap.get('id');
       if (!id || !/^\d+$/.test(id)) {
@@ -57,6 +61,10 @@ export class AdminCourseFormComponent implements OnInit {
       this.courseService.getById(this.courseId).subscribe(
         (course) => {
           this.courseForm.patchValue(course);
+
+          if (course.imageCover) {
+            this.previewUrl = course.imageCover;
+          }
         },
         (err) => {
           console.log(err);
@@ -66,6 +74,7 @@ export class AdminCourseFormComponent implements OnInit {
   }
 
   createCourse() {
+    this.isSubmitted = true;
     this.courseService.saveCourse(this.courseForm.value).subscribe({
       next: (res: any) => {
         console.log(res);
@@ -73,6 +82,7 @@ export class AdminCourseFormComponent implements OnInit {
         if (this.selectedFile) {
           this.courseService.uploadImage(res.id, this.selectedFile).subscribe({
             next: () => {
+              this.isSubmitted = false;
               this.toastrService.success('Course + Image saved successfully!');
 
               this.resetForm();
@@ -82,6 +92,7 @@ export class AdminCourseFormComponent implements OnInit {
             },
 
             error: (err) => {
+              this.isSubmitted = false;
               console.error(err);
 
               this.toastrService.error('Course saved but image upload failed');
@@ -95,11 +106,31 @@ export class AdminCourseFormComponent implements OnInit {
       },
 
       error: (err) => {
+        this.isSubmitted = false;
         console.error(err);
 
         this.toastrService.error('Failed to save course');
       },
     });
+  }
+
+  loadCategories() {
+    let params = new HttpParams().append('_page', 0).append('_limit', 100);
+
+    this.courseService.getCategories(params).subscribe(
+      (res) => {
+        this.categories = Array.isArray(res.content) ? res.content : [];
+      },
+      (err) => {
+        this.categories = [];
+        console.log(err);
+      },
+    );
+  }
+
+  onCategoryChange(event: any) {
+    const selectedCategoryId = event.target.value;
+    this.courseForm.patchValue({ categoryId: selectedCategoryId });
   }
 
   // createCourse() {
@@ -117,9 +148,18 @@ export class AdminCourseFormComponent implements OnInit {
 
   resetForm() {
     this.courseForm.reset();
+
+    this.previewUrl = null;
+
+    this.selectedFile = undefined as any;
   }
 
   saveCourse() {
+    if (this.courseForm.invalid) {
+      this.courseForm.markAllAsTouched();
+      return;
+    }
+
     if (this.courseId) {
       this.updateCourse();
     } else {
@@ -127,45 +167,42 @@ export class AdminCourseFormComponent implements OnInit {
     }
   }
 
- updateCourse() {
-  this.courseService.updateCourse(this.courseForm.value).subscribe({
-    next: () => {
-      // upload new image if selected
-      if (this.selectedFile) {
-        this.courseService
-          .updateImage(this.courseId, this.selectedFile)
-          .subscribe({
-            next: () => {
-              this.toastrService.success(
-                'Course + Image updated successfully!'
-              );
-              this.previewUrl = null;
-            },
-            error: (err) => {
-              console.error(err);
-              this.toastrService.error(
-                'Course updated but image failed'
-              );
-            }
-          });
-      } else {
-        this.toastrService.success(
-          'Course updated successfully!'
-        );
-      }
-    },
+  updateCourse() {
+    this.isSubmitted = true;
+    this.courseService.updateCourse(this.courseForm.value).subscribe({
+      next: () => {
+        // upload new image if selected
+        if (this.selectedFile) {
+          this.courseService
+            .updateImage(this.courseId, this.selectedFile)
+            .subscribe({
+              next: () => {
+                this.isSubmitted = false;
+                this.toastrService.success(
+                  'Course + Image updated successfully!',
+                );
+                this.previewUrl = null;
+              },
+              error: (err) => {
+                this.isSubmitted = false;
+                console.error(err);
+                this.toastrService.error('Course updated but image failed');
+              },
+            });
+        } else {
+          this.isSubmitted = false;
+          this.toastrService.success('Course updated successfully!');
+        }
+      },
 
-    error: (err) => {
+      error: (err) => {
+        this.isSubmitted = false;
+        console.error(err);
 
-      console.error(err);
-
-      this.toastrService.error(
-        'Failed to update course'
-      );
-    }
-
-  });
-}
+        this.toastrService.error('Failed to update course');
+      },
+    });
+  }
 
   onFileSelected(event: any): void {
     const file = event.target.files[0];

@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { CategoryFormComponent } from './admin-category-form.component';
+import { AdminCategoryFormComponent } from './admin-category-form.component';
 // describe('CategoryFormComponent', () => {
 //   let component: CategoryFormComponent;
 //   let fixture: ComponentFixture<CategoryFormComponent>;

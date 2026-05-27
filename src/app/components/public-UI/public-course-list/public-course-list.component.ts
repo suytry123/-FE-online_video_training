@@ -3,6 +3,7 @@ import { PublicCourseService } from '../../../services/public-services/public-co
 import { Router } from '@angular/router';
 import { CourseSummary } from '../../../models/course-summary.model';
 import { UserService } from '../../../services/admin-services/user.service';
+import { VideoDTO } from '../../../models/course-detail.model';
 
 @Component({
   selector: 'app-public-course-list',
@@ -11,7 +12,7 @@ import { UserService } from '../../../services/admin-services/user.service';
   styleUrl: './public-course-list.component.css',
 })
 export class PublicCourseListComponent implements OnInit {
-  courses: CourseSummary[] = [];
+  courses: CourseSummary[] = [];  
 
   constructor(
     private courseService: PublicCourseService,

@@ -6,7 +6,6 @@
 
     <div class="card border-0 shadow-sm h-100">
 
-      <!-- IMAGE -->
       <img
         [src]="'http://localhost:8080/api/courses/image/' + course.id"
         class="card-img-top"
@@ -16,23 +15,23 @@
 
       <div class="card-body d-flex flex-column">
 
-        <!-- CATEGORY -->
         <span class="badge bg-primary mb-3">
           {{ course.category_name }}
         </span>
 
-        <!-- COURSE NAME -->
         <h5 class="fw-bold">
           {{ course.name }}
         </h5>
 
-        <!-- AUTHOR -->
+        <p class="text-muted mb-3">
+          {{ course.course_description | slice:0:100 }}
+        </p>
+
         <p class="text-muted mb-3">
           Instructor:
           {{ course.author_name }}
         </p>
 
-        <!-- PRICE -->
         <div class="d-flex justify-content-between align-items-center mt-auto">
 
           <strong class="text-warning fs-5">

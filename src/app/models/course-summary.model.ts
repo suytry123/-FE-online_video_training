@@ -4,6 +4,7 @@ export interface CourseSummary {
   name: string;
   category_id: number;
   author_name: string;
+  course_description:string;
 
   views: number;
   likes: number;

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/internal/Observable';
   providedIn: 'root',
 })
 export class CourseService {
-  url = 'http://localhost:8080/api/courses';
+  private readonly url = 'http://localhost:8080/api/courses';
 
   constructor(private http: HttpClient) {}
 
@@ -16,6 +16,13 @@ export class CourseService {
 
   getCourseList(params?: HttpParams): Observable<any> {
     return this.http.get<any>(this.url, {
+      params,
+      headers: this.getAuthHeaders(),
+    });
+  }
+
+  getCategories(params?: HttpParams): Observable<any> {
+    return this.http.get<any>('http://localhost:8080/categories', {
       params,
       headers: this.getAuthHeaders(),
     });
@@ -43,7 +50,9 @@ export class CourseService {
     const formData = new FormData();
 
     formData.append('file', file);
-    return this.http.post(`${this.url}/upload/${id}`, formData);
+    return this.http.post(`${this.url}/upload/${id}`, formData, {
+      headers: this.getAuthHeaders(),
+    });
   }
 
   updateImage(id: number, file: File): Observable<any> {
@@ -51,15 +60,25 @@ export class CourseService {
 
     formData.append('file', file);
 
-    return this.http.put(`${this.url}/update/${id}`, formData);
+    return this.http.put(`${this.url}/update/${id}`, formData, {
+      headers: this.getAuthHeaders(),
+    });
   }
 
   getTrash() {
-    return this.http.get(`${this.url}/trash`);
+    return this.http.get(`${this.url}/trash`, {
+      headers: this.getAuthHeaders(),
+    });
   }
 
   restore(id: number) {
-    return this.http.put(`${this.url}/${id}/restore`, {});
+    return this.http.put(
+      `${this.url}/${id}/restore`,
+      {},
+      {
+        headers: this.getAuthHeaders(),
+      },
+    );
   }
 
   private getAuthHeaders(): HttpHeaders {
