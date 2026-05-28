@@ -1,4 +1,5 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -6,7 +7,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class CategoryService {
-  url = 'http://localhost:8080/api/categories';
+  // url = 'http://localhost:8080/api/categories';
+  private readonly url = `${environment.apiUrl}/categories`;
 
   constructor(private http: HttpClient) {}
 
@@ -42,11 +44,19 @@ export class CategoryService {
   }
 
   getTrash(): Observable<any> {
-    return this.http.get(`${this.url}/trash`);
+    return this.http.get(`${this.url}/trash`, {
+      headers: this.getAuthHeaders(),
+    });
   }
 
   restore(id: number): Observable<any> {
-    return this.http.put(`${this.url}/${id}/restore`, {});
+    return this.http.put(
+      `${this.url}/${id}/restore`,
+      {},
+      {
+        headers: this.getAuthHeaders(),
+      },
+    );
   }
 
   private getAuthHeaders(): HttpHeaders {

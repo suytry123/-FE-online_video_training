@@ -119,7 +119,16 @@ export class AdminCourseFormComponent implements OnInit {
 
     this.courseService.getCategories(params).subscribe(
       (res) => {
-        this.categories = Array.isArray(res.content) ? res.content : [];
+        if (Array.isArray(res)) {
+          this.categories = res;
+          return;
+        }
+
+        this.categories = Array.isArray(res?.list)
+          ? res.list
+          : Array.isArray(res?.content)
+            ? res.content
+            : [];
       },
       (err) => {
         this.categories = [];

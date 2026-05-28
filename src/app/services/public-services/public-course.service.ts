@@ -2,12 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { CourseDetail } from '../../models/course-detail.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PublicCourseService {
-  private apiUrl = 'http://localhost:8080/api/courses';
+  // private apiUrl = 'http://localhost:8080/api/courses';
+  private readonly apiUrl = `${environment.apiUrl}/courses`;
 
   constructor(private http: HttpClient) {}
 
@@ -32,7 +34,7 @@ export class PublicCourseService {
   }
 
   getStatistics() {
-    return this.http.get<any>('http://localhost:8080/api/public/statistics');
+    return this.http.get<any>(`${environment.apiUrl}/public/statistics`);
   }
 
   // increaseView(id: number): Observable<any> {

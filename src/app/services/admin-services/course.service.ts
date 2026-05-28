@@ -1,12 +1,15 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CourseService {
-  private readonly url = 'http://localhost:8080/api/courses';
+  // private readonly url = 'http://localhost:8080/api/courses';
+  private readonly url = `${environment.apiUrl}/courses`;
+  private readonly categoryUrl = `${environment.apiUrl}/categories`;
 
   constructor(private http: HttpClient) {}
 
@@ -22,7 +25,7 @@ export class CourseService {
   }
 
   getCategories(params?: HttpParams): Observable<any> {
-    return this.http.get<any>('http://localhost:8080/categories', {
+    return this.http.get<any>(this.categoryUrl, {
       params,
       headers: this.getAuthHeaders(),
     });

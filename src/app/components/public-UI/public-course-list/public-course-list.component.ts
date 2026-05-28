@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { CourseSummary } from '../../../models/course-summary.model';
 import { UserService } from '../../../services/admin-services/user.service';
 import { VideoDTO } from '../../../models/course-detail.model';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-public-course-list',
@@ -12,7 +13,7 @@ import { VideoDTO } from '../../../models/course-detail.model';
   styleUrl: './public-course-list.component.css',
 })
 export class PublicCourseListComponent implements OnInit {
-  courses: CourseSummary[] = [];  
+  courses: CourseSummary[] = [];
 
   constructor(
     private courseService: PublicCourseService,
@@ -65,6 +66,10 @@ export class PublicCourseListComponent implements OnInit {
         console.log(err);
       },
     });
+  }
+
+  getImageUrl(id: number): string {
+    return `${environment.apiUrl}/courses/image/${id}`;
   }
 
   goToDetail(course: CourseSummary): void {

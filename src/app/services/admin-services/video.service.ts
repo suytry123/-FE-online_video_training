@@ -1,12 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class VideoService {
-  private api = 'http://localhost:8080/api/videos';
+  // private api = 'http://localhost:8080/api/videos';
+  private readonly api = `${environment.apiUrl}/videos`;
 
   constructor(private http: HttpClient) {}
 

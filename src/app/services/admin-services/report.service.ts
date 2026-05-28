@@ -1,11 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ReportService {
-  private baseUrl = 'http://localhost:8080/api/report';
+  // private baseUrl = 'http://localhost:8080/api/report';
+  private readonly baseUrl = `${environment.apiUrl}/report`;
 
   constructor(private http: HttpClient) {}
 
@@ -36,8 +38,6 @@ export class ReportService {
   }
 
   getDashboard(period: string) {
-    return this.http.get<any>(
-      `${this.baseUrl}/dashboard?period=${period}`,
-    );
+    return this.http.get<any>(`${this.baseUrl}/dashboard?period=${period}`);
   }
 }

@@ -3,9 +3,10 @@
     <div class="col-md-6">
       <div class="card shadow-lg border-0">
         <div class="card-header bg-primary text-white">
-          <h4 class="mb-0">Add New Course</h4>
+          <h4 class="mb-0">
+            {{ courseId ? "Update Course" : "Add New Course" }}
+          </h4>
         </div>
-
         <div class="card-body">
           <form [formGroup]="courseForm">
             <div class="mb-3">
@@ -172,9 +173,8 @@
                 >
                   <span *ngIf="!isSubmitted">
                     <i class="bi bi-save"></i>
-                    Save
+                    {{ courseId ? "Update" : "Save" }}
                   </span>
-
                   <span *ngIf="isSubmitted">
                     <span class="spinner-border spinner-border-sm me-2"></span>
                     Saving...

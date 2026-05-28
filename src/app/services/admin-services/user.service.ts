@@ -1,13 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
   //url = '/api/';
-  url = 'http://localhost:8080/api/';
+  // url = 'http://localhost:8080/api/';
+  private readonly url = `${environment.apiUrl}/`;
 
   constructor(private http: HttpClient) {}
 
@@ -46,39 +48,30 @@ export class UserService {
   }
 
   getRoles(): string[] {
-  const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token');
 
-  if (!token) {
-    return [];
-  }
-
-  try {
-
-    const payload = JSON.parse(
-      atob(token.split('.')[1])
-    );
-
-    const authorities = payload?.authorities;
-
-    if (!Array.isArray(authorities)) {
+    if (!token) {
       return [];
     }
 
-    return authorities
-      .filter((a: any) =>
-        a.authority?.startsWith('ROLE_')
-      )
-      .map((a: any) =>
-        a.authority.replace('ROLE_', '')
-      );
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
 
-  } catch (error) {
+      const authorities = payload?.authorities;
 
-    console.error('Invalid token:', error);
+      if (!Array.isArray(authorities)) {
+        return [];
+      }
 
-    return [];
+      return authorities
+        .filter((a: any) => a.authority?.startsWith('ROLE_'))
+        .map((a: any) => a.authority.replace('ROLE_', ''));
+    } catch (error) {
+      console.error('Invalid token:', error);
+
+      return [];
+    }
   }
-}
 
   /*getRole(): string | null {
     const token = localStorage.getItem('token');

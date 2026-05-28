@@ -3,7 +3,9 @@
     <div class="col-md-6">
       <div class="card shadow-lg border-0">
         <div class="card-header bg-primary text-white">
-          <h4 class="mb-0">Add New Category</h4>
+          <h4 class="mb-0">
+            {{ categoryId ? "Update Category" : "Add New Category" }}
+          </h4>
         </div>
         <div class="card-body">
           <form [formGroup]="categoryForm">
@@ -76,7 +78,7 @@
                 >
                   <span *ngIf="!isSubmitted">
                     <i class="bi bi-save"></i>
-                    Save
+                    {{ categoryId ? "Update" : "Save" }}
                   </span>
 
                   <span *ngIf="isSubmitted">
