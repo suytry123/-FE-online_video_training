@@ -13,56 +13,30 @@ export class CategoryService {
   constructor(private http: HttpClient) {}
 
   saveCategory(category: any) {
-    return this.http.post(this.url, category, {
-      headers: this.getAuthHeaders(),
-    });
+    return this.http.post(this.url, category);
   }
 
   getCategoryList(params?: HttpParams): Observable<any> {
-    return this.http.get<any>(this.url, {
-      params,
-      headers: this.getAuthHeaders(),
-    });
+    return this.http.get<any>(this.url, { params });
   }
 
   getById(id: number) {
-    return this.http.get<any>(`${this.url}/${id}`, {
-      headers: this.getAuthHeaders(),
-    });
+    return this.http.get<any>(`${this.url}/${id}`);
   }
 
   updateCategory(category: any) {
-    return this.http.put(`${this.url}/${category.id}`, category, {
-      headers: this.getAuthHeaders(),
-    });
+    return this.http.put(`${this.url}/${category.id}`, category);
   }
 
   deleteCategory(id: number) {
-    return this.http.delete(`${this.url}/${id}`, {
-      headers: this.getAuthHeaders(),
-    });
+    return this.http.delete(`${this.url}/${id}`);
   }
 
   getTrash(): Observable<any> {
-    return this.http.get(`${this.url}/trash`, {
-      headers: this.getAuthHeaders(),
-    });
+    return this.http.get(`${this.url}/trash`);
   }
 
   restore(id: number): Observable<any> {
-    return this.http.put(
-      `${this.url}/${id}/restore`,
-      {},
-      {
-        headers: this.getAuthHeaders(),
-      },
-    );
-  }
-
-  private getAuthHeaders(): HttpHeaders {
-    const token = localStorage.getItem('token');
-    return token
-      ? new HttpHeaders().set('Authorization', `Bearer ${token}`)
-      : new HttpHeaders();
+    return this.http.put(`${this.url}/${id}/restore`, {});
   }
 }

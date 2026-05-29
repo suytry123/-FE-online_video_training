@@ -29,23 +29,21 @@ export class AdminVideoFormComponent implements OnInit {
   ngOnInit(): void {
     this.videoForm = this.fb.group({
       id: [''],
-      courseId: [''],
+      courseId: [null, Validators.required],
       title: ['', [Validators.required, Validators.minLength(3)]],
       description: ['', [Validators.required, Validators.minLength(10)]],
       videoLink: this.fb.array([]),
     });
 
     this.route.paramMap.subscribe((params) => {
-      const id = params.get('id');
+      const id = params.get('courseId');
 
       if (!id) return;
 
       const courseId = Number(id);
 
       if (!isNaN(courseId)) {
-        this.videoForm.patchValue({
-          courseId: courseId,
-        });
+        this.videoForm.patchValue({ courseId });
       }
     });
     this.addLink();
@@ -107,7 +105,9 @@ export class AdminVideoFormComponent implements OnInit {
       this.videoForm.markAllAsTouched();
       return;
     }
-    const formValue = this.videoForm.value;
+    // const formValue = this.videoForm.value;
+    const formValue = { ...this.videoForm.value };
+    formValue.courseId = Number(formValue.courseId);
     formValue.videoLink = formValue.videoLink.map((link: string) =>
       this.formatUrl(link),
     );

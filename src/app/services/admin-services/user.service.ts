@@ -57,6 +57,31 @@ export class UserService {
     try {
       const payload = JSON.parse(atob(token.split('.')[1]));
 
+      console.log('JWT Payload:', payload);
+
+      const authorities = payload?.authorities;
+
+      if (!Array.isArray(authorities)) {
+        return [];
+      }
+
+      return authorities.map((a: any) => a.authority.replace('ROLE_', ''));
+    } catch (error) {
+      console.error('Invalid token:', error);
+      return [];
+    }
+  }
+
+  /*getRoles(): string[] {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      return [];
+    }
+
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+
       const authorities = payload?.authorities;
 
       if (!Array.isArray(authorities)) {
@@ -71,7 +96,7 @@ export class UserService {
 
       return [];
     }
-  }
+  }*/
 
   /*getRole(): string | null {
     const token = localStorage.getItem('token');

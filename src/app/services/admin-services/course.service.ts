@@ -14,48 +14,35 @@ export class CourseService {
   constructor(private http: HttpClient) {}
 
   saveCourse(course: any) {
-    return this.http.post(this.url, course, { headers: this.getAuthHeaders() });
+    return this.http.post(this.url, course);
   }
 
   getCourseList(params?: HttpParams): Observable<any> {
-    return this.http.get<any>(this.url, {
-      params,
-      headers: this.getAuthHeaders(),
-    });
+    return this.http.get<any>(this.url, { params });
   }
 
   getCategories(params?: HttpParams): Observable<any> {
-    return this.http.get<any>(this.categoryUrl, {
-      params,
-      headers: this.getAuthHeaders(),
-    });
+    return this.http.get<any>(this.categoryUrl, { params });
   }
 
   getById(id: number) {
-    return this.http.get<any>(`${this.url}/${id}`, {
-      headers: this.getAuthHeaders(),
-    });
+    return this.http.get<any>(`${this.url}/${id}`);
   }
 
   updateCourse(course: any) {
-    return this.http.put(`${this.url}/${course.id}`, course, {
-      headers: this.getAuthHeaders(),
-    });
+    return this.http.put(`${this.url}/${course.id}`, course);
   }
 
   deleteCourse(id: number) {
-    return this.http.delete(`${this.url}/${id}`, {
-      headers: this.getAuthHeaders(),
-    });
+    return this.http.delete(`${this.url}/${id}`);
   }
 
   uploadImage(id: number, file: File) {
     const formData = new FormData();
 
     formData.append('file', file);
-    return this.http.post(`${this.url}/upload/${id}`, formData, {
-      headers: this.getAuthHeaders(),
-    });
+
+    return this.http.post(`${this.url}/upload/${id}`, formData);
   }
 
   updateImage(id: number, file: File): Observable<any> {
@@ -63,31 +50,14 @@ export class CourseService {
 
     formData.append('file', file);
 
-    return this.http.put(`${this.url}/update/${id}`, formData, {
-      headers: this.getAuthHeaders(),
-    });
+    return this.http.put(`${this.url}/update/${id}`, formData);
   }
 
   getTrash() {
-    return this.http.get(`${this.url}/trash`, {
-      headers: this.getAuthHeaders(),
-    });
+    return this.http.get(`${this.url}/trash`);
   }
 
   restore(id: number) {
-    return this.http.put(
-      `${this.url}/${id}/restore`,
-      {},
-      {
-        headers: this.getAuthHeaders(),
-      },
-    );
-  }
-
-  private getAuthHeaders(): HttpHeaders {
-    const token = localStorage.getItem('token');
-    return token
-      ? new HttpHeaders().set('Authorization', `Bearer ${token}`)
-      : new HttpHeaders();
+    return this.http.put(`${this.url}/${id}/restore`, {});
   }
 }

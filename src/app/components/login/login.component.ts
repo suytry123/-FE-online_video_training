@@ -24,13 +24,13 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-      username: ['', [Validators.required, Validators.minLength(3)]],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
 
-  get username() {
-    return this.loginForm.get('username');
+  get email() {
+    return this.loginForm.get('email');
   }
 
   get password() {
@@ -50,14 +50,11 @@ export class LoginComponent implements OnInit {
         const token = res.headers.get('Authorization');
         if (token) {
           localStorage.setItem('token', token);
-          localStorage.setItem(
-          'user',
-          JSON.stringify(res.body)
-        );
+          localStorage.setItem('user', JSON.stringify(res.body));
           const roles = this.userService.getRoles();
           console.log('User roles:', roles);
           // if (role === 'ADMIN' || role === 'AUTHOR') {
-          if(roles.includes('ADMIN') || roles.includes('AUTHOR')) {
+          if (roles.includes('ADMIN') || roles.includes('AUTHOR')) {
             this.router.navigate(['/admin/dashboard']);
           } else {
             this.router.navigate(['/']);
@@ -68,7 +65,8 @@ export class LoginComponent implements OnInit {
       },
       error: (err) => {
         // console.log(err);
-         this.loginError = 'Invalid username or password';
+        this.submitted = false;
+        this.loginError = 'Invalid email or password';
       },
     });
   }
