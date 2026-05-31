@@ -4,12 +4,13 @@
       <div class="card shadow-sm">
         <div class="card-body p-4">
           <h3 class="mb-3 text-center">Sign Up</h3>
-             <div class="mb-3">
-            <button 
-              type="button" 
-              class="btn btn-outline-secondary w-100" 
+          <div class="mb-3">
+            <button
+              type="button"
+              class="btn btn-outline-secondary w-100"
               (click)="goToLogin()"
-              aria-label="Go back to login page">
+              aria-label="Go back to login page"
+            >
               <i class="fas fa-arrow-left me-2"></i>Back to Login
             </button>
           </div>
@@ -96,8 +97,49 @@
                   >Password is required.</span
                 >
                 <span *ngIf="f['password'].errors['minlength']"
-                  >Password must be at least 6 characters.</span
+                  >Password must be at least 8 characters.</span
                 >
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="confirmPassword" class="form-label">
+                Confirm Password
+              </label>
+
+              <input
+                type="password"
+                id="confirmPassword"
+                class="form-control"
+                formControlName="confirmPassword"
+                placeholder="Confirm password"
+                [ngClass]="{
+                  'is-invalid':
+                    (submitted || f['confirmPassword'].touched) &&
+                    (f['confirmPassword'].invalid ||
+                      signupForm.hasError('passwordMismatch')),
+                }"
+              />
+
+              <div
+                *ngIf="
+                  (submitted || f['confirmPassword'].touched) &&
+                  f['confirmPassword'].errors
+                "
+                class="invalid-feedback"
+              >
+                <span *ngIf="f['confirmPassword'].errors['required']">
+                  Confirm password is required.
+                </span>
+              </div>
+
+              <div
+                *ngIf="
+                  (submitted || f['confirmPassword'].touched) &&
+                  signupForm.hasError('passwordMismatch')
+                "
+                class="invalid-feedback d-block"
+              >
+                Passwords do not match.
               </div>
             </div>
             <button type="submit" class="btn btn-primary w-100">Sign Up</button>

@@ -1,92 +1,89 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
-
   <div class="container">
-
     <!-- LOGO -->
-    <a class="navbar-brand fw-bold">
-      LearnHub
-    </a>
+    <a class="navbar-brand fw-bold" routerLink="/"> LearnHub </a>
 
     <!-- MOBILE BUTTON -->
     <button
       class="navbar-toggler"
       type="button"
       data-bs-toggle="collapse"
-      data-bs-target="#navbarMenu">
-
+      data-bs-target="#navbarMenu"
+    >
       <span class="navbar-toggler-icon"></span>
-
     </button>
 
     <!-- MENU -->
     <div class="collapse navbar-collapse" id="navbarMenu">
-
       <ul class="navbar-nav ms-auto align-items-lg-center">
-
         <li class="nav-item">
-          <a
-            routerLink="/"
-            class="nav-link">
-
-            Home
-
-          </a>
+          <a routerLink="/" class="nav-link"> Home </a>
         </li>
 
         <li class="nav-item">
-          <a
-            routerLink="/courses"
-            class="nav-link">
-
-            Courses
-
-          </a>
+          <a routerLink="/courses" class="nav-link"> Courses </a>
         </li>
 
+        <!-- <li class="nav-item">
+          <a routerLink="/profile" class="nav-link"> My Profile </a>
+        </li> -->
+
         <li class="nav-item">
+          <a routerLink="/about" class="nav-link"> About </a>
+        </li>
+
+        <li class="nav-item dropdown ms-lg-3" *ngIf="isLoggedIn()">
           <a
-            routerLink="/about"
-            class="nav-link">
+            class="nav-link dropdown-toggle d-flex align-items-center"
+            href="javascript:void(0)"
+            role="button"
+            data-bs-toggle="dropdown"
+          >
+            <img
+              [src]="navbarPhoto"
+              (error)="navbarPhoto = 'assets/img/avatars/default.jpg'"
+              class="rounded-circle me-2 shadow-sm profile-avatar"
+              width="40"
+              height="40"
+              alt="Profile"
+            />
 
-            About
-
+            <span>{{ username }}</span>
           </a>
+
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li>
+              <a class="dropdown-item" routerLink="/profile"> My Profile </a>
+            </li>
+
+            <li>
+              <a class="dropdown-item" routerLink="/courses"> My Courses </a>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider" />
+            </li>
+
+            <li>
+              <button class="dropdown-item text-danger" (click)="logout()">
+                Logout
+              </button>
+            </li>
+          </ul>
         </li>
 
         <!-- LOGIN -->
-        <li
-          class="nav-item ms-lg-3 mt-2 mt-lg-0"
-          *ngIf="!isLoggedIn()">
-
-          <button
-            routerLink="/login"
-            class="btn btn-warning px-4">
-
+        <li class="nav-item ms-lg-3 mt-2 mt-lg-0" *ngIf="!isLoggedIn()">
+          <button routerLink="/login" class="btn btn-warning px-4">
             Login
-
           </button>
-
         </li>
 
         <!-- LOGOUT -->
-        <li
-          class="nav-item ms-lg-3 mt-2 mt-lg-0"
-          *ngIf="isLoggedIn()">
-
-          <button
-            class="btn btn-danger px-4"
-            (click)="logout()">
-
-            Logout
-
-          </button>
-
-        </li>
-
+        <!-- <li class="nav-item ms-lg-3 mt-2 mt-lg-0" *ngIf="isLoggedIn()">
+          <button class="btn btn-danger px-4" (click)="logout()">Logout</button>
+        </li> -->
       </ul>
-
     </div>
-
   </div>
-
 </nav>

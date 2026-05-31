@@ -39,10 +39,12 @@ import { PopularCourseSectionComponent } from './components/public-UI/popular-co
 import { StatisticSectionComponent } from './components/public-UI/statistic-section/statistic-section.component';
 import { CtaSectionComponent } from './components/public-UI/cta-section/cta-section.component';
 import { PublicCourseListComponent } from './components/public-UI/public-course-list/public-course-list.component';
-import { NgChartsModule  } from 'ng2-charts';
+import { NgChartsModule } from 'ng2-charts';
 import { AdminCategoryTrashComponent } from './components/admin/UI/category/admin-category-trash/admin-category-trash.component';
 import { AdminCourseTrashComponent } from './components/admin/UI/course/admin-course-trash/admin-course-trash.component';
 import { AdminVideoTrashComponent } from './components/admin/UI/video/admin-video-trash/admin-video-trash.component';
+import { AdminProfileComponent } from './pages/admin/admin-profile/admin-profile.component';
+import { PublicProfileComponent } from './pages/user/public-profile/public-profile.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +82,9 @@ import { AdminVideoTrashComponent } from './components/admin/UI/video/admin-vide
     PublicCourseListComponent,
     AdminCategoryTrashComponent,
     AdminCourseTrashComponent,
-    AdminVideoTrashComponent
+    AdminVideoTrashComponent,
+    AdminProfileComponent,
+    PublicProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -95,12 +99,12 @@ import { AdminVideoTrashComponent } from './components/admin/UI/video/admin-vide
     ToastrModule.forRoot({
       timeOut: 15000, // 15 seconds
       closeButton: true,
-      progressBar: true
+      progressBar: true,
     }),
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

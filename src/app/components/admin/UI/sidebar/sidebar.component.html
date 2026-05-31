@@ -78,6 +78,20 @@
         </a>
       </li>
 
+      <li
+        class="sidebar-item"
+        routerLinkActive="active"
+        *ngIf="
+          userService.getRoles().includes('ADMIN') ||
+          userService.getRoles().includes('AUTHOR')
+        "
+      >
+        <a class="sidebar-link" [routerLink]="['/admin/profile']">
+          <i class="align-middle" data-feather="user"></i>
+          <span class="align-middle">Profile</span>
+        </a>
+      </li>
+
       <li class="sidebar-header">Plugins & Addons</li>
 
       <li class="sidebar-item">

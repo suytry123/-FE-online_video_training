@@ -1,0 +1,53 @@
+<div class="container-fluid">
+  <div class="card shadow">
+    <div class="card-header bg-primary text-white">
+      <h4>Admin Profile</h4>
+    </div>
+
+    <div class="card-body">
+      <form [formGroup]="profileForm">
+        <div class="mb-3">
+          <label>Username</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="username"
+            readonly
+          />
+        </div>
+
+        <div class="mb-3">
+          <label>Email</label>
+          <input
+            type="email"
+            class="form-control"
+            formControlName="email"
+            readonly
+          />
+        </div>
+
+        <div class="mb-3">
+          <label>Phone Number</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="phoneNumber"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label>Gender</label>
+          <select class="form-select" formControlName="gender">
+            <option value="">Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
+        </div>
+
+        <button type="button" class="btn btn-primary" (click)="updateProfile()">
+          Update Profile
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

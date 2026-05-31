@@ -22,15 +22,27 @@ import { adminGuard } from './core/guards/admin.guard';
 import { AdminCategoryTrashComponent } from './components/admin/UI/category/admin-category-trash/admin-category-trash.component';
 import { AdminCourseTrashComponent } from './components/admin/UI/course/admin-course-trash/admin-course-trash.component';
 import { AdminVideoTrashComponent } from './components/admin/UI/video/admin-video-trash/admin-video-trash.component';
+import { AdminProfileComponent } from './pages/admin/admin-profile/admin-profile.component';
+import { PublicProfileComponent } from './pages/user/public-profile/public-profile.component';
 
 const routes: Routes = [
-   {
-    path: '', component: PublicLayoutComponent,
+  {
+    path: '',
+    component: PublicLayoutComponent,
     children: [
       { path: '', component: HomeComponent },
       { path: 'courses', component: PublicCourseListComponent },
-      { path: 'courses/:id', component: PublicCourseDetailComponent, canActivate: [authGuard] },
-    ]
+      {
+        path: 'courses/:id',
+        component: PublicCourseDetailComponent,
+        canActivate: [authGuard],
+      },
+      {
+        path: 'profile',
+        component: PublicProfileComponent,
+        canActivate: [authGuard],
+      },
+    ],
   },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
@@ -43,6 +55,7 @@ const routes: Routes = [
     children: [
       { path: 'dashboard', component: AdminDashboardComponent },
       { path: 'user', component: UserComponent, canActivate: [adminGuard] },
+      { path: 'profile', component: AdminProfileComponent },
       {
         path: 'category',
         children: [
@@ -74,7 +87,11 @@ const routes: Routes = [
           { path: 'trash', component: AdminVideoTrashComponent },
         ],
       },
-      { path: 'report', component: ReportComponent, canActivate: [authGuard, adminGuard] },
+      {
+        path: 'report',
+        component: ReportComponent,
+        canActivate: [adminGuard],
+      },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
   },

@@ -10,6 +10,17 @@ body {
   min-height: 100vh;
 }
 
+.profile-avatar {
+  object-fit: cover;
+  border: 2px solid #ffffff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.profile-avatar:hover {
+  transform: scale(1.05);
+}
+
 .hero {
   text-align: center;
   padding: 100px 20px;

@@ -1,0 +1,74 @@
+<div class="container mt-4">
+  <div class="card shadow">
+    <div class="card-header">
+      <h4>My Profile</h4>
+    </div>
+
+    <div class="card-body">
+      <div class="text-center mb-4">
+        <img
+          [src]="profileImage"
+          (error)="profileImage = 'assets/img/avatars/default.jpg'"
+          class="profile-avatar rounded-circle border"
+          width="120"
+          height="120"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label>Upload Photo</label>
+
+        <input
+          type="file"
+          class="form-control"
+          (change)="onFileSelected($event)"
+        />
+
+        <!--<button class="btn btn-primary mt-2" (click)="uploadPhoto()">
+          Upload
+        </button>
+      </div> -->
+
+        <div class="mb-3">
+          <label>Username</label>
+
+          <input class="form-control" [value]="profile?.username" readonly />
+        </div>
+
+        <div class="mb-3">
+          <label>Email</label>
+
+          <input class="form-control" [value]="profile?.email" readonly />
+        </div>
+
+        <form [formGroup]="profileForm">
+          <div class="mb-3">
+            <label>Phone Number</label>
+
+            <input formControlName="phone_number" class="form-control" />
+          </div>
+
+          <div class="mb-3">
+            <label>Gender</label>
+
+            <select formControlName="gender" class="form-control">
+              <option value="">Select Gender</option>
+
+              <option value="Male">Male</option>
+
+              <option value="Female">Female</option>
+            </select>
+          </div>
+
+          <button
+            type="button"
+            class="btn btn-success"
+            (click)="updateProfile()"
+          >
+            Update Profile
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
