@@ -190,17 +190,20 @@
       >
         <!-- <img src="assets/img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1" alt="Charles Hall" /> <span class="text-dark">{{ getUsername() }}</span> -->
         <img
-          src="assets/img/avatars/avatar.jpg"
-          class="avatar img-fluid rounded-circle me-2"
+          [src]="navbarPhoto"
+          (error)="navbarPhoto = 'assets/img/avatars/default.jpg'"
+          class="avatar img-fluid rounded-circle me-2 border shadow-sm"
           width="40"
           height="40"
           alt="Profile"
-        /><span class="text-dark">{{ getUsername() }}</span>
+        />
+        <span class="text-dark">{{ getUsername() }}</span>
       </a>
       <div class="dropdown-menu dropdown-menu-end">
-        <a class="dropdown-item" href="pages-profile.html"
-          ><i class="align-middle me-1" data-feather="user"></i> Profile</a
-        >
+        <a class="dropdown-item" routerLink="/admin/profile">
+          <i class="align-middle me-1" data-feather="user"></i>
+          Profile
+        </a>
         <a class="dropdown-item" href="#"
           ><i class="align-middle me-1" data-feather="pie-chart"></i>
           Analytics</a
@@ -215,7 +218,14 @@
           Center</a
         >
         <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="#" (click)="signOut()">Log out</a>
+        <button
+          type="button"
+          class="dropdown-item text-danger"
+          (click)="signOut()"
+        >
+          <i class="align-middle me-1" data-feather="log-out"></i>
+          Log out
+        </button>
       </div>
     </li>
   </ul>

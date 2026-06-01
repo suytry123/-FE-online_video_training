@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { environment } from '../../../environments/environment';
+import { VideoDTO } from '../../models/course-detail.model';
 
 @Injectable({
   providedIn: 'root',
@@ -12,24 +13,32 @@ export class VideoService {
 
   constructor(private http: HttpClient) {}
 
-  saveVideo(data: any) {
-    return this.http.post(this.api, data);
+  saveVideo(data: VideoDTO): Observable<VideoDTO> {
+    return this.http.post<VideoDTO>(this.api, data);
   }
 
-  getVideosByCourse(courseId: number): Observable<any[]> {
-    return this.http.get<any[]>(`${this.api}/course/${courseId}`);
+  getVideosByCourse(courseId: number): Observable<VideoDTO[]> {
+    return this.http.get<VideoDTO[]>(`${this.api}/course/${courseId}`);
   }
 
-  deleteVideo(id: number) {
-    return this.http.delete(`${this.api}/${id}`);
+  getVideoById(id: number): Observable<VideoDTO> {
+    return this.http.get<VideoDTO>(`${this.api}/${id}`);
   }
 
-  getTrash() {
-    return this.http.get(`${this.api}/trash`);
+  updateVideo(id: number, data: VideoDTO): Observable<VideoDTO> {
+    return this.http.put<VideoDTO>(`${this.api}/${id}`, data);
   }
 
-  restore(id: number) {
-    return this.http.put(`${this.api}/${id}/restore`, {});
+  deleteVideo(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.api}/${id}`);
+  }
+
+  getTrash(): Observable<VideoDTO[]> {
+    return this.http.get<VideoDTO[]>(`${this.api}/trash`);
+  }
+
+  restore(id: number): Observable<void> {
+    return this.http.put<void>(`${this.api}/${id}/restore`, {});
   }
 
   // addVideoLinks(videoId: number, links: string[]) {

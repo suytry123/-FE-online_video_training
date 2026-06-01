@@ -1,46 +1,29 @@
 <div class="container mt-4">
-
   <!-- HEADER -->
   <div class="d-flex justify-content-between align-items-center mb-4">
-
     <div>
       <h3 class="fw-bold mb-1">Course Videos</h3>
-      <p class="text-muted small mb-0">
-        Watch and manage your course content
-      </p>
+      <p class="text-muted small mb-0">Watch and manage your course content</p>
     </div>
 
     <div class="d-flex gap-2">
-
-      <a
-        routerLink="/admin/video/trash"
-        class="btn btn-warning px-4"
-      >
+      <a routerLink="/admin/video/trash" class="btn btn-warning px-4">
         <i class="bi bi-trash3 me-1"></i>
         Trash
       </a>
 
-      <button
-        class="btn btn-success px-4"
-        (click)="goToAddVideo()"
-      >
+      <button class="btn btn-success px-4" (click)="goToAddVideo()">
         <i class="bi bi-plus-lg me-1"></i>
         Add Video
       </button>
-
     </div>
-
   </div>
 
   <div class="row g-4">
-
     <!-- LEFT: Video Player -->
     <div class="col-lg-8" *ngIf="selectedVideo">
-
       <div class="card shadow-sm border-0 rounded-4">
-
         <div class="card-body p-4">
-
           <!-- Title -->
           <div class="d-flex align-items-start gap-2 mb-3">
             <i class="bi bi-camera-reels-fill fs-4 text-primary"></i>
@@ -52,7 +35,6 @@
 
           <!-- Video Player -->
           <div class="ratio ratio-16x9 mb-4 rounded-3 overflow-hidden bg-dark">
-
             <iframe
               *ngIf="selectedLink"
               [src]="selectedLink | safeUrl"
@@ -61,21 +43,14 @@
               class="w-100 h-100"
             >
             </iframe>
-
           </div>
 
           <!-- MULTIPLE LINKS -->
-          <div
-            *ngIf="selectedVideo?.video_link?.length > 1"
-            class="mb-4"
-          >
-
+          <div *ngIf="selectedVideo?.video_link?.length > 1" class="mb-4">
             <div class="d-flex align-items-center gap-2 mb-2">
               <i class="bi bi-list-ul text-primary"></i>
 
-              <h6 class="fw-semibold mb-0">
-                Video Parts
-              </h6>
+              <h6 class="fw-semibold mb-0">Video Parts</h6>
 
               <span class="badge bg-secondary rounded-pill">
                 {{ selectedVideo.video_link.length }} parts
@@ -83,7 +58,6 @@
             </div>
 
             <div class="d-flex flex-wrap gap-2">
-
               <button
                 *ngFor="let link of selectedVideo.video_link; let i = index"
                 class="btn btn-outline-primary btn-sm rounded-pill px-3"
@@ -95,20 +69,15 @@
                 <i class="bi bi-play-fill me-1"></i>
                 Part {{ i + 1 }}
               </button>
-
             </div>
-
           </div>
 
           <!-- Description -->
           <div class="border-top pt-3 mt-2">
-
             <div class="d-flex gap-2">
-
               <i class="bi bi-info-circle-fill text-info"></i>
 
               <div>
-
                 <small class="text-muted text-uppercase fw-semibold">
                   Description
                 </small>
@@ -116,44 +85,34 @@
                 <p class="text-muted mb-0 mt-1">
                   {{ selectedVideo.description }}
                 </p>
-
               </div>
-
             </div>
-
           </div>
-
         </div>
-
       </div>
-
     </div>
 
     <!-- RIGHT: PLAYLIST -->
     <div class="col-lg-4">
-
       <div class="card shadow-sm border-0 rounded-4 h-100">
-
-        <div class="card-header bg-gradient-primary text-white rounded-top-4 py-3">
-
+        <div
+          class="card-header bg-gradient-primary text-white rounded-top-4 py-3"
+        >
           <div class="d-flex align-items-center gap-2">
-
             <i class="bi bi-play-btn-fill fs-5"></i>
 
-            <h6 class="mb-0 fw-bold">
-              Video Playlist
-            </h6>
+            <h6 class="mb-0 fw-bold">Video Playlist</h6>
 
             <span class="badge bg-light text-dark ms-auto rounded-pill">
               {{ videos.length }} videos
             </span>
-
           </div>
-
         </div>
 
-        <div class="list-group list-group-flush rounded-bottom-4 overflow-hidden">
-
+        <!-- <div class="list-group list-group-flush rounded-bottom-4 overflow-hidden"> -->
+        <div
+          class="list-group list-group-flush rounded-bottom-4 video-playlist"
+        >
           <div
             class="list-group-item list-group-item-action p-3"
             *ngFor="let video of videos"
@@ -166,30 +125,23 @@
             [class.border-start-width]="video === selectedVideo ? '4px' : '0'"
             [class.border-primary]="video === selectedVideo"
           >
-
             <div class="d-flex align-items-start gap-3">
-
               <!-- ICON -->
               <div class="flex-shrink-0">
-
                 <div
                   class="bg-secondary bg-opacity-10 rounded-2 p-2"
                   [class.bg-white]="video === selectedVideo"
                 >
-
                   <i
                     class="bi bi-camera-reels"
                     [class.text-white]="video === selectedVideo"
                     [class.text-primary]="video !== selectedVideo"
                   ></i>
-
                 </div>
-
               </div>
 
               <!-- CONTENT -->
               <div class="flex-grow-1">
-
                 <div class="fw-semibold mb-1">
                   {{ video.title }}
                 </div>
@@ -211,12 +163,10 @@
                   <i class="bi bi-play-circle me-1"></i>
                   1 video
                 </small>
-
               </div>
 
               <!-- ACTIONS -->
               <div class="flex-shrink-0 d-flex gap-2 align-items-center">
-
                 <button
                   class="btn btn-sm btn-outline-light"
                   *ngIf="video === selectedVideo"
@@ -237,24 +187,15 @@
                   [class.text-white]="video === selectedVideo"
                   [class.text-muted]="video !== selectedVideo"
                 ></i>
-
               </div>
-
             </div>
-
           </div>
 
           <!-- EMPTY -->
-          <div
-            *ngIf="videos.length === 0"
-            class="text-center py-5"
-          >
-
+          <div *ngIf="videos.length === 0" class="text-center py-5">
             <i class="bi bi-camera-reels-off fs-1 text-muted"></i>
 
-            <p class="text-muted mt-2 mb-0">
-              No videos available
-            </p>
+            <p class="text-muted mt-2 mb-0">No videos available</p>
 
             <button
               class="btn btn-sm btn-primary mt-3"
@@ -262,15 +203,9 @@
             >
               Add your first video
             </button>
-
           </div>
-
         </div>
-
       </div>
-
     </div>
-
   </div>
-
 </div>

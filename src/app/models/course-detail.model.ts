@@ -1,22 +1,12 @@
-export interface Video {
-
-  courseId: number;
-  title: string;
-  description: string;
-
-}
-
 export interface VideoDTO {
-
-  id: number;
+  id?: number;
+  course_id: number;
   title: string;
   description: string;
   video_link: string[];
-
 }
 
 export interface CourseDetail {
-
   id: number;
 
   name: string;
@@ -34,5 +24,4 @@ export interface CourseDetail {
   category_name: string;
 
   videos: VideoDTO[];
-
 }

@@ -12,3 +12,23 @@
 .navbar-align {
   margin-left: auto;
 }
+
+.profile-image-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.navbar-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease;
+}
+
+.navbar-avatar:hover {
+  transform: scale(1.05);
+}

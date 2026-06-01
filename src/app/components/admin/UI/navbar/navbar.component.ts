@@ -7,6 +7,9 @@ import {
 } from '@angular/core';
 declare const feather: { replace: () => void } | undefined;
 import { Router } from '@angular/router';
+import { environment } from '../../../../../environments/environment';
+import { ProfileService } from '../../../../services/admin-services/profile.service';
+import { UserService } from '../../../../services/admin-services/user.service';
 
 @Component({
   selector: 'app-navbar',
@@ -15,10 +18,20 @@ import { Router } from '@angular/router';
   standalone: false,
 })
 export class NavbarComponent implements OnInit, AfterViewInit {
-  @Output() logoutEvent = new EventEmitter<boolean>();
-  constructor(private router: Router) {}
+  navbarPhoto = 'assets/img/avatars/default.jpg';
 
-  ngOnInit(): void {}
+  @Output() logoutEvent = new EventEmitter<boolean>();
+  constructor(
+    private router: Router,
+    private profileService: ProfileService,
+    private userService: UserService,
+  ) {}
+
+  ngOnInit(): void {
+    if (this.userService.isLoggedIn()) {
+      this.loadNavbarUser();
+    }
+  }
 
   ngAfterViewInit(): void {
     // Navbar is created after login; render Feather icons after view mount.
@@ -42,5 +55,20 @@ export class NavbarComponent implements OnInit, AfterViewInit {
     }
 
     return 'User';
+  }
+
+  loadNavbarUser() {
+    this.profileService.getProfile().subscribe({
+      next: (res) => {
+        const user = res.data;
+
+        this.navbarPhoto = user.photo
+          ? `${environment.apiUrl}/user/photo/${user.id}?t=${Date.now()}`
+          : 'assets/img/avatars/default.jpg';
+      },
+      error: () => {
+        this.navbarPhoto = 'assets/img/avatars/default.jpg';
+      },
+    });
   }
 }

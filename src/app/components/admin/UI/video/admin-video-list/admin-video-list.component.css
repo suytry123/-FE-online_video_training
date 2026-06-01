@@ -30,6 +30,11 @@ body {
   font-size: 0.9rem;
 }
 
+.video-playlist {
+  max-height: 700px;
+  overflow-y: auto;
+}
+
 /* Button styling - Trash button */
 .btn-warning {
   background: linear-gradient(135deg, #f59e0b, #d97706) !important;

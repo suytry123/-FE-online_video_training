@@ -1,16 +1,16 @@
 <div class="container mt-4">
   <div class="card shadow-lg border-0">
     <div class="card-header bg-success text-white">
-      <h4>Add Video</h4>
+      <h4>{{ videoId ? "Edit Video" : "Add Video" }}</h4>
     </div>
 
     <div class="card-body">
       <form [formGroup]="videoForm">
         <input type="hidden" formControlName="id" />
-        <input type="hidden" formControlName="courseId" />
+        <input type="hidden" formControlName="course_id" />
 
         <div class="mb-3">
-          <label>Title</label>
+          <label class="form-label">Title</label>
           <input class="form-control" type="text" formControlName="title" />
 
           <div
@@ -30,10 +30,11 @@
         </div>
 
         <div class="mb-3">
-          <label>Description</label>
+          <label class="form-label">Description</label>
 
           <textarea
             class="form-control"
+            rows="4"
             formControlName="description"
           ></textarea>
 
@@ -54,7 +55,7 @@
           </div>
         </div>
 
-        <div formArrayName="videoLink">
+        <div formArrayName="video_link">
           <div
             *ngFor="let link of videoLinks.controls; let i = index"
             class="mb-2"
@@ -65,11 +66,11 @@
                 [formControlName]="i"
                 placeholder="Enter video link"
               />
-
               <button
                 type="button"
                 class="btn btn-danger ms-2"
                 (click)="removeLink(i)"
+                [disabled]="videoLinks.length === 1"
               >
                 X
               </button>
@@ -81,26 +82,30 @@
               </small>
 
               <small *ngIf="link.errors?.['pattern']">
-                Enter valid YouTube or Video URL
+                Enter a valid YouTube URL
               </small>
             </div>
           </div>
         </div>
 
-        <button type="button" class="btn btn-secondary" (click)="addLink()">
-          + Add Link
-        </button>
-        <button
-          type="button"
-          class="btn btn-outline-dark"
-          routerLink="/admin/course/list"
-        >
-          <i class="bi bi-arrow-left"></i>
-          Back
-        </button>
-        <button type="button" class="btn btn-success" (click)="save()">
-          Save
-        </button>
+        <div class="mt-3 d-flex gap-2">
+          <button type="button" class="btn btn-secondary" (click)="addLink()">
+            + Add Link
+          </button>
+
+          <button
+            type="button"
+            class="btn btn-outline-dark"
+            routerLink="/admin/course/list"
+          >
+            <i class="bi bi-arrow-left"></i>
+            Back
+          </button>
+
+          <button type="button" class="btn btn-success" (click)="save()">
+            Save
+          </button>
+        </div>
       </form>
     </div>
   </div>

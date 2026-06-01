@@ -6,9 +6,10 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { VideoService } from '../../../../../services/admin-services/video.service';
 import { ToastrService } from 'ngx-toastr';
+import { VideoDTO } from '../../../../../models/course-detail.model';
 
 @Component({
   selector: 'app-admin-video-form',
@@ -17,40 +18,88 @@ import { ToastrService } from 'ngx-toastr';
   standalone: false,
 })
 export class AdminVideoFormComponent implements OnInit {
+  private readonly youtubePattern =
+    '^(https:\\/\\/)?(www\\.)?(youtube\\.com\\/watch\\?v=|youtu\\.be\\/|youtube\\.com\\/embed\\/).+';
   videoForm!: FormGroup;
+  videoId?: number;
 
   constructor(
     private fb: FormBuilder,
     private videoService: VideoService,
     private route: ActivatedRoute,
+    private router: Router,
     private toastrService: ToastrService,
   ) {}
 
   ngOnInit(): void {
     this.videoForm = this.fb.group({
       id: [''],
-      courseId: [null, Validators.required],
+      course_id: [null, Validators.required],
       title: ['', [Validators.required, Validators.minLength(3)]],
       description: ['', [Validators.required, Validators.minLength(10)]],
-      videoLink: this.fb.array([]),
+      video_link: this.fb.array([]),
     });
 
     this.route.paramMap.subscribe((params) => {
-      const id = params.get('courseId');
+      const videoId = params.get('id');
+      const courseId = params.get('courseId');
 
-      if (!id) return;
+      // const courseId = params.get('courseId');
 
-      const courseId = Number(id);
+      if (videoId) {
+        this.videoId = Number(videoId);
 
-      if (!isNaN(courseId)) {
-        this.videoForm.patchValue({ courseId });
+        this.videoService.getVideoById(this.videoId).subscribe({
+          next: (video: VideoDTO) => {
+            this.videoForm.patchValue({
+              id: video.id,
+              // course_id: video.course_id ?? Number(courseId),
+              course_id: video.course_id,
+              title: video.title,
+              description: video.description,
+              video_link: [],
+            });
+
+            this.videoLinks.clear();
+
+            video.video_link.forEach((link: string) => {
+              this.videoLinks.push(
+                new FormControl(link, [
+                  Validators.required,
+                  Validators.pattern(this.youtubePattern),
+                ]),
+              );
+            });
+          },
+          error: () => {
+            this.toastrService.error('Failed to load video');
+          },
+        });
+      } else {
+        this.videoForm.patchValue({
+          course_id: Number(courseId),
+        });
+        this.addLink();
       }
     });
-    this.addLink();
   }
 
   get videoLinks(): FormArray {
-    return this.videoForm.get('videoLink') as FormArray;
+    return this.videoForm.get('video_link') as FormArray;
+  }
+
+  reset() {
+    const course_id = Number(this.videoForm.value.course_id);
+
+    this.videoForm.reset({
+      id: '',
+      course_id: course_id,
+      title: '',
+      description: '',
+    });
+
+    this.videoLinks.clear();
+    this.addLink();
   }
 
   // addLink() {
@@ -61,22 +110,23 @@ export class AdminVideoFormComponent implements OnInit {
     this.videoLinks.push(
       new FormControl('', [
         Validators.required,
-        Validators.pattern(
-          '^(https:\\/\\/)?(www\\.)?(youtube\\.com\\/watch\\?v=|youtu\\.be\\/|youtube\\.com\\/embed\\/).+',
-        ),
+        Validators.pattern(this.youtubePattern),
       ]),
     );
   }
 
   removeLink(index: number) {
-    this.videoLinks.removeAt(index);
+    // this.videoLinks.removeAt(index);
+    if (this.videoLinks.length > 1) {
+      this.videoLinks.removeAt(index);
+    }
   }
 
   // formatUrl(url: string): string {
   //   return url.includes('watch?v=') ? url.replace('watch?v=', 'embed/') : url;
   // }
 
-  formatUrl(url: string): string {
+  private formatUrl(url: string): string {
     if (!url) return '';
 
     // youtu.be/abc123
@@ -106,20 +156,34 @@ export class AdminVideoFormComponent implements OnInit {
       return;
     }
     // const formValue = this.videoForm.value;
-    const formValue = { ...this.videoForm.value };
-    formValue.courseId = Number(formValue.courseId);
-    formValue.videoLink = formValue.videoLink.map((link: string) =>
-      this.formatUrl(link),
-    );
-    this.videoService.saveVideo(formValue).subscribe({
-      next: (response) => {
-        console.log('Video saved successfully:', response);
-        this.toastrService.success('Video saved successfully!');
-      },
-      error: (error) => {
-        console.error('Error saving video:', error);
-        this.toastrService.error('Error saving video.');
-      },
-    });
+    const videoLinks = this.videoForm.value.video_link as string[];
+
+    const formValue: VideoDTO = {
+      ...this.videoForm.value,
+      course_id: Number(this.videoForm.value.course_id),
+      description: this.videoForm.value.description.trim(),
+      video_link: videoLinks.map((link) => this.formatUrl(link)),
+    };
+    if (this.videoId) {
+      this.videoService.updateVideo(this.videoId, formValue).subscribe({
+        next: () => {
+          this.toastrService.success('Video updated successfully!');
+          this.router.navigate(['/admin/video/list', formValue.course_id]);
+        },
+        error: () => {
+          this.toastrService.error('Error updating video.');
+        },
+      });
+    } else {
+      this.videoService.saveVideo(formValue).subscribe({
+        next: () => {
+          this.toastrService.success('Video saved successfully!');
+          this.reset();
+        },
+        error: () => {
+          this.toastrService.error('Error saving video.');
+        },
+      });
+    }
   }
 }
