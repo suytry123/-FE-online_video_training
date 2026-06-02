@@ -19,7 +19,7 @@ import { VideoDTO } from '../../../../../models/course-detail.model';
 })
 export class AdminVideoFormComponent implements OnInit {
   private readonly youtubePattern =
-    '^(https:\\/\\/)?(www\\.)?(youtube\\.com\\/watch\\?v=|youtu\\.be\\/|youtube\\.com\\/embed\\/).+';
+    /^(https?:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/).+/;
   videoForm!: FormGroup;
   videoId?: number;
 
@@ -53,8 +53,7 @@ export class AdminVideoFormComponent implements OnInit {
           next: (video: VideoDTO) => {
             this.videoForm.patchValue({
               id: video.id,
-              // course_id: video.course_id ?? Number(courseId),
-              course_id: video.course_id,
+              course_id: video.course_id ?? Number(courseId),
               title: video.title,
               description: video.description,
               video_link: [],
@@ -63,12 +62,7 @@ export class AdminVideoFormComponent implements OnInit {
             this.videoLinks.clear();
 
             video.video_link.forEach((link: string) => {
-              this.videoLinks.push(
-                new FormControl(link, [
-                  Validators.required,
-                  Validators.pattern(this.youtubePattern),
-                ]),
-              );
+              this.videoLinks.push(this.createVideoLinkControl(link));
             });
           },
           error: () => {
@@ -84,8 +78,8 @@ export class AdminVideoFormComponent implements OnInit {
     });
   }
 
-  get videoLinks(): FormArray {
-    return this.videoForm.get('video_link') as FormArray;
+  get videoLinks(): FormArray<FormControl> {
+    return this.videoForm.get('video_link') as FormArray<FormControl>;
   }
 
   reset() {
@@ -102,17 +96,19 @@ export class AdminVideoFormComponent implements OnInit {
     this.addLink();
   }
 
+  private createVideoLinkControl(value = ''): FormControl {
+    return new FormControl(value, [
+      Validators.required,
+      Validators.pattern(this.youtubePattern),
+    ]);
+  }
+
   // addLink() {
   //   this.videoLinks.push(this.fb.control(''));
   // }
 
   addLink() {
-    this.videoLinks.push(
-      new FormControl('', [
-        Validators.required,
-        Validators.pattern(this.youtubePattern),
-      ]),
-    );
+    this.videoLinks.push(this.createVideoLinkControl());
   }
 
   removeLink(index: number) {
@@ -161,6 +157,7 @@ export class AdminVideoFormComponent implements OnInit {
     const formValue: VideoDTO = {
       ...this.videoForm.value,
       course_id: Number(this.videoForm.value.course_id),
+      title: this.videoForm.value.title.trim(),
       description: this.videoForm.value.description.trim(),
       video_link: videoLinks.map((link) => this.formatUrl(link)),
     };

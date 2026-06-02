@@ -3,6 +3,7 @@ import { UserService } from '../../services/admin-services/user.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -20,6 +21,7 @@ export class LoginComponent implements OnInit {
     private userService: UserService,
     private fb: FormBuilder,
     private router: Router,
+    private toastr: ToastrService,
   ) {}
 
   ngOnInit(): void {
@@ -66,7 +68,15 @@ export class LoginComponent implements OnInit {
       error: (err) => {
         // console.log(err);
         this.submitted = false;
-        this.loginError = 'Invalid email or password';
+        const message = err?.error?.message || 'Invalid email or password';
+
+        this.loginError = message;
+
+        if (message.includes('Account locked')) {
+          this.toastr.warning(message);
+        } else {
+          this.toastr.error(message);
+        }
       },
     });
   }
