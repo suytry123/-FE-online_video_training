@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from '../../../../environments/environment';
 import { ProfileService } from '../../../services/admin-services/profile.service';
+import { userPhotoUrl } from '../../../core/utils/api-url.util';
 
 @Component({
   selector: 'app-navbar-public',
@@ -42,7 +43,8 @@ export class NavbarPublicComponent implements OnInit {
         this.username = user.username;
 
         this.navbarPhoto = user.photo
-          ? `${environment.apiUrl}/user/photo/${user.id}?t=${Date.now()}`
+          ? // ? `${environment.apiUrl}/user/photo/${user.id}?t=${Date.now()}`
+            userPhotoUrl(user.id)
           : 'assets/img/avatars/default.jpg';
       },
       error: () => {

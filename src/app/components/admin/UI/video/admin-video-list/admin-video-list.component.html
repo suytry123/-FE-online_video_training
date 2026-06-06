@@ -147,16 +147,16 @@
                 </div>
 
                 <small
-                  *ngIf="video?.video_link?.length > 1"
+                  *ngIf="video?.videoLink?.length > 1"
                   [class.text-white-50]="video === selectedVideo"
                   [class.text-muted]="video !== selectedVideo"
                 >
                   <i class="bi bi-collection-play me-1"></i>
-                  {{ video.video_link.length }} parts
+                  {{ video.videoLink.length }} parts
                 </small>
 
                 <small
-                  *ngIf="video?.video_link?.length === 1"
+                  *ngIf="video?.videoLink?.length === 1"
                   [class.text-white-50]="video === selectedVideo"
                   [class.text-muted]="video !== selectedVideo"
                 >

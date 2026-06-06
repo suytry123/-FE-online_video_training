@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { environment } from '../../../../../environments/environment';
 import { ProfileService } from '../../../../services/admin-services/profile.service';
 import { UserService } from '../../../../services/admin-services/user.service';
+import { userPhotoUrl } from '../../../../core/utils/api-url.util';
 
 @Component({
   selector: 'app-navbar',
@@ -63,7 +64,8 @@ export class NavbarComponent implements OnInit, AfterViewInit {
         const user = res.data;
 
         this.navbarPhoto = user.photo
-          ? `${environment.apiUrl}/user/photo/${user.id}?t=${Date.now()}`
+          ? // ? `${environment.apiUrl}/user/photo/${user.id}?t=${Date.now()}`
+            userPhotoUrl(user.id)
           : 'assets/img/avatars/default.jpg';
       },
       error: () => {

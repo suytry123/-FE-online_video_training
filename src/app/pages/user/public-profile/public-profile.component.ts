@@ -3,6 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { ProfileService } from '../../../services/admin-services/profile.service';
 import { environment } from '../../../../environments/environment';
+import { userPhotoUrl } from '../../../core/utils/api-url.util';
 
 @Component({
   selector: 'app-public-profile',
@@ -41,8 +42,10 @@ export class PublicProfileComponent implements OnInit {
       next: (res) => {
         this.profile = res.data;
 
-        this.profileImage = this.profile.id
-          ? `${environment.apiUrl}/user/photo/${this.profile.id}?t=${Date.now()}`
+        // this.profileImage = this.profile.id
+        //   ? `${environment.apiUrl}/user/photo/${this.profile.id}?t=${Date.now()}`
+        this.profileImage = this.profile.photo
+          ? userPhotoUrl(this.profile.id)
           : 'assets/img/avatars/default.jpg';
 
         console.log(this.profile);

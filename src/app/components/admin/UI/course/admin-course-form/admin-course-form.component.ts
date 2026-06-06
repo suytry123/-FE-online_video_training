@@ -9,6 +9,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CourseService } from '../../../../../services/admin-services/course.service';
 import { HttpParams } from '@angular/common/http';
+import { courseImageUrl } from '../../../../../core/utils/api-url.util';
 
 @Component({
   selector: 'app-admin-course-form',
@@ -63,7 +64,8 @@ export class AdminCourseFormComponent implements OnInit {
           this.courseForm.patchValue(course);
 
           if (course.imageCover) {
-            this.previewUrl = course.imageCover;
+            // this.previewUrl = course.imageCover;
+            this.previewUrl = courseImageUrl(this.courseId);
           }
         },
         (err) => {

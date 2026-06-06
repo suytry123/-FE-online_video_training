@@ -41,7 +41,7 @@ export class AdminVideoListComponent {
           this.videos.length > 0 ? this.videos[0] : undefined;
 
         if (this.selectedVideo) {
-          this.selectedLink = this.selectedVideo.video_link?.[0];
+          this.selectedLink = this.selectedVideo.videoLink?.[0];
         }
       },
       error: (err) => console.error(err),
@@ -54,7 +54,7 @@ export class AdminVideoListComponent {
 
   selectVideo(video: any) {
     this.selectedVideo = video;
-    this.selectedLink = video.video_link?.[0]; // default first
+    this.selectedLink = video.videoLink?.[0]; // default first
   }
 
   // goToAddVideo() {

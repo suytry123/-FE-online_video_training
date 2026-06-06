@@ -4,13 +4,13 @@
       <div class="card h-100 shadow-sm course-card">
         <div class="course-image-wrap">
           <!-- <img
-            *ngIf="course.image_cover"
+            *ngIf="course.imageCover"
             [src]="'http://localhost:8080/api/courses/image/' + course.id"
             class="card-img-top course-image"
             alt="Course image"
           /> -->
           <img
-            *ngIf="course.image_cover"
+            *ngIf="course.imageCover"
             [src]="getImageUrl(course.id)"
             class="card-img-top course-image"
             alt="Course image"
@@ -23,12 +23,12 @@
           </h5>
 
           <p class="text-muted small mb-3 course-description">
-            {{ course.course_description | slice: 0 : 100 }}
+            {{ course.courseDescription | slice: 0 : 100 }}
           </p>
 
           <p class="text-muted">
             Instructor:
-            {{ course.author_name }}
+            {{ course.authorName }}
           </p>
 
           <div class="d-flex gap-3 mb-3 align-items-center">

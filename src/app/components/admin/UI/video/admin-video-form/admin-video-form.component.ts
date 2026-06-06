@@ -83,11 +83,11 @@ export class AdminVideoFormComponent implements OnInit {
   }
 
   reset() {
-    const course_id = Number(this.videoForm.value.course_id);
+    const courseId = Number(this.videoForm.value.courseId);
 
     this.videoForm.reset({
       id: '',
-      course_id: course_id,
+      courseId: courseId,
       title: '',
       description: '',
     });
