@@ -96,11 +96,11 @@ export class ReportComponent implements OnInit {
 
   loadCharts(): void {
     this.lineChartData = {
-      labels: this.dashboardData.user_trend.map((x: any) => x.label),
+      labels: this.dashboardData.userTrend.map((x: any) => x.label),
 
       datasets: [
         {
-          data: this.dashboardData.user_trend.map((x: any) => x.value),
+          data: this.dashboardData.userTrend.map((x: any) => x.value),
           label: 'Users',
           tension: 0.4,
         },
@@ -108,11 +108,11 @@ export class ReportComponent implements OnInit {
     };
 
     this.pieChartData = {
-      labels: this.dashboardData.role_breakdown.map((x: any) => x.label),
+      labels: this.dashboardData.roleBreakdown.map((x: any) => x.label),
 
       datasets: [
         {
-          data: this.dashboardData.role_breakdown.map((x: any) => x.value),
+          data: this.dashboardData.roleBreakdown.map((x: any) => x.value),
         },
       ],
     };

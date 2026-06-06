@@ -34,10 +34,10 @@ export class AdminVideoFormComponent implements OnInit {
   ngOnInit(): void {
     this.videoForm = this.fb.group({
       id: [''],
-      course_id: [null, Validators.required],
+      courseId: [null, Validators.required],
       title: ['', [Validators.required, Validators.minLength(3)]],
       description: ['', [Validators.required, Validators.minLength(10)]],
-      video_link: this.fb.array([]),
+      videoLink: this.fb.array([]),
     });
 
     this.route.paramMap.subscribe((params) => {
@@ -53,15 +53,15 @@ export class AdminVideoFormComponent implements OnInit {
           next: (video: VideoDTO) => {
             this.videoForm.patchValue({
               id: video.id,
-              course_id: video.course_id ?? Number(courseId),
+              courseId: video.courseId ?? Number(courseId),
               title: video.title,
               description: video.description,
-              video_link: [],
+              videoLink: [],
             });
 
             this.videoLinks.clear();
 
-            video.video_link.forEach((link: string) => {
+            video.videoLink.forEach((link: string) => {
               this.videoLinks.push(this.createVideoLinkControl(link));
             });
           },
@@ -71,7 +71,7 @@ export class AdminVideoFormComponent implements OnInit {
         });
       } else {
         this.videoForm.patchValue({
-          course_id: Number(courseId),
+          courseId: Number(courseId),
         });
         this.addLink();
       }
@@ -79,7 +79,7 @@ export class AdminVideoFormComponent implements OnInit {
   }
 
   get videoLinks(): FormArray<FormControl> {
-    return this.videoForm.get('video_link') as FormArray<FormControl>;
+    return this.videoForm.get('videoLink') as FormArray<FormControl>;
   }
 
   reset() {
@@ -152,20 +152,20 @@ export class AdminVideoFormComponent implements OnInit {
       return;
     }
     // const formValue = this.videoForm.value;
-    const videoLinks = this.videoForm.value.video_link as string[];
+    const videoLinks = this.videoForm.value.videoLink as string[];
 
     const formValue: VideoDTO = {
       ...this.videoForm.value,
-      course_id: Number(this.videoForm.value.course_id),
+      courseId: Number(this.videoForm.value.courseId),
       title: this.videoForm.value.title.trim(),
       description: this.videoForm.value.description.trim(),
-      video_link: videoLinks.map((link) => this.formatUrl(link)),
+      videoLink: videoLinks.map((link) => this.formatUrl(link)),
     };
     if (this.videoId) {
       this.videoService.updateVideo(this.videoId, formValue).subscribe({
         next: () => {
           this.toastrService.success('Video updated successfully!');
-          this.router.navigate(['/admin/video/list', formValue.course_id]);
+          this.router.navigate(['/admin/video/list', formValue.courseId]);
         },
         error: () => {
           this.toastrService.error('Error updating video.');

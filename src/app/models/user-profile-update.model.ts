@@ -1,4 +1,4 @@
 export interface UserProfileUpdate {
-  phone_number: string;
+  phoneNumber: string;
   gender: string;
 }

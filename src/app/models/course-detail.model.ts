@@ -1,9 +1,9 @@
 export interface VideoDTO {
   id?: number;
-  course_id: number;
+  courseId: number;
   title: string;
   description: string;
-  video_link: string[];
+  videoLink: string[];
 }
 
 export interface CourseDetail {
@@ -19,9 +19,9 @@ export interface CourseDetail {
 
   liked: boolean;
 
-  author_name: string;
+  authorName: string;
 
-  category_name: string;
+  categoryName: string;
 
   videos: VideoDTO[];
 }

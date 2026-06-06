@@ -39,7 +39,7 @@ export class PublicCourseDetailComponent implements OnInit {
         if (this.course.videos.length > 0) {
           this.selectedVideo = this.course.videos[0];
 
-          this.selectedLink = this.selectedVideo.video_link?.[0];
+          this.selectedLink = this.selectedVideo.videoLink?.[0];
         }
       },
 
@@ -76,7 +76,6 @@ export class PublicCourseDetailComponent implements OnInit {
   selectVideo(video: VideoDTO): void {
     this.selectedVideo = video;
 
-    this.selectedLink = video.video_link[0];
+    this.selectedLink = video.videoLink?.[0];
   }
-
 }

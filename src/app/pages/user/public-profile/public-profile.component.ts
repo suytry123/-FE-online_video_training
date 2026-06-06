@@ -29,7 +29,7 @@ export class PublicProfileComponent implements OnInit {
     this.profileForm = this.fb.group({
       username: [{ value: '', disabled: true }],
       email: [{ value: '', disabled: true }],
-      phone_number: [''],
+      phoneNumber: [''],
       gender: [''],
     });
 
@@ -51,7 +51,7 @@ export class PublicProfileComponent implements OnInit {
         this.profileForm.patchValue({
           username: this.profile.username,
           email: this.profile.email,
-          phone_number: this.profile.phone_number,
+          phoneNumber: this.profile.phoneNumber,
           gender: this.profile.gender,
         });
       },
