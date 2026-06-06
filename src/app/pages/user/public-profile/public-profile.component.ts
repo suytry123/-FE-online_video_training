@@ -4,6 +4,8 @@ import { FormGroup } from '@angular/forms';
 import { ProfileService } from '../../../services/admin-services/profile.service';
 import { environment } from '../../../../environments/environment';
 import { userPhotoUrl } from '../../../core/utils/api-url.util';
+import { UserProfile } from '../../../models/user-profile.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-public-profile',
@@ -13,8 +15,7 @@ import { userPhotoUrl } from '../../../core/utils/api-url.util';
   styleUrl: './public-profile.component.css',
 })
 export class PublicProfileComponent implements OnInit {
-  baseUrl = environment.apiUrl;
-  profile: any;
+  profile!: UserProfile;
   profileImage!: string;
 
   profileForm!: FormGroup;
@@ -24,6 +25,7 @@ export class PublicProfileComponent implements OnInit {
   constructor(
     private profileService: ProfileService,
     private fb: FormBuilder,
+    private toastr: ToastrService,
   ) {}
 
   ngOnInit(): void {
@@ -39,8 +41,8 @@ export class PublicProfileComponent implements OnInit {
 
   loadProfile(): void {
     this.profileService.getProfile().subscribe({
-      next: (res) => {
-        this.profile = res.data;
+      next: ({ data }) => {
+        this.profile = data;
 
         // this.profileImage = this.profile.id
         //   ? `${environment.apiUrl}/user/photo/${this.profile.id}?t=${Date.now()}`
@@ -65,7 +67,7 @@ export class PublicProfileComponent implements OnInit {
     this.profileService.updateProfile(this.profileForm.value).subscribe({
       next: () => {
         if (this.selectedFile) {
-          const request = this.profile?.photo
+          const request = this.profile.photo
             ? this.profileService.updatePhoto(
                 this.profile.id,
                 this.selectedFile,
@@ -77,24 +79,28 @@ export class PublicProfileComponent implements OnInit {
 
           request.subscribe({
             next: () => {
+              const photoUrl = userPhotoUrl(this.profile.id, true);
+
+              this.profileService.updateProfilePhoto(photoUrl);
+              this.profileImage = photoUrl;
               this.selectedFile = undefined;
 
-              alert('Profile updated successfully');
+              this.toastr.success('Profile updated successfully');
               this.loadProfile();
             },
             error: (err) => {
               console.error(err);
-              alert('Failed to update profile');
+              this.toastr.error('Failed to update profile');
             },
           });
         } else {
-          alert('Profile updated successfully');
+          this.toastr.success('Profile updated successfully');
           this.loadProfile();
         }
       },
       error: (err) => {
         console.error(err);
-        alert('Failed to update profile');
+        this.toastr.error('Failed to update profile');
       },
     });
   }
@@ -138,12 +144,12 @@ export class PublicProfileComponent implements OnInit {
 
     request.subscribe({
       next: () => {
-        alert('Photo saved');
+        this.toastr.success('Photo saved');
         this.loadProfile();
       },
       error: (err) => {
         console.error(err);
-        alert('Upload failed');
+        this.toastr.error('Upload failed');
       },
     });
   }*/
@@ -155,7 +161,7 @@ export class PublicProfileComponent implements OnInit {
       .uploadPhoto(this.profile.id, this.selectedFile)
       .subscribe({
         next: () => {
-          alert('Photo uploaded');
+          this.toastr.success('Photo uploaded');
 
           this.loadProfile();
         },

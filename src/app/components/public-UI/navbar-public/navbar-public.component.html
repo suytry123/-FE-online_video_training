@@ -32,7 +32,7 @@
           <a routerLink="/about" class="nav-link"> About </a>
         </li>
 
-        <li class="nav-item dropdown ms-lg-3" *ngIf="isLoggedIn()">
+        <li class="nav-item dropdown ms-lg-3" *ngIf="isAuthenticated">
           <a
             class="nav-link dropdown-toggle d-flex align-items-center"
             href="javascript:void(0)"
@@ -73,7 +73,7 @@
         </li>
 
         <!-- LOGIN -->
-        <li class="nav-item ms-lg-3 mt-2 mt-lg-0" *ngIf="!isLoggedIn()">
+        <li class="nav-item ms-lg-3 mt-2 mt-lg-0" *ngIf="!isAuthenticated">
           <button routerLink="/login" class="btn btn-warning px-4">
             Login
           </button>

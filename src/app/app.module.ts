@@ -45,6 +45,7 @@ import { AdminCourseTrashComponent } from './components/admin/UI/course/admin-co
 import { AdminVideoTrashComponent } from './components/admin/UI/video/admin-video-trash/admin-video-trash.component';
 import { AdminProfileComponent } from './pages/admin/admin-profile/admin-profile.component';
 import { PublicProfileComponent } from './pages/user/public-profile/public-profile.component';
+import { UserVerificationEmailComponent } from './pages/auth/user-verification-email/user-verification-email.component';
 
 @NgModule({
   declarations: [
@@ -85,6 +86,7 @@ import { PublicProfileComponent } from './pages/user/public-profile/public-profi
     AdminVideoTrashComponent,
     AdminProfileComponent,
     PublicProfileComponent,
+    UserVerificationEmailComponent,
   ],
   imports: [
     BrowserModule,

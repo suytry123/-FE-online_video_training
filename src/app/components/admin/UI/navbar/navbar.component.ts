@@ -1,7 +1,9 @@
 import {
   AfterViewInit,
   Component,
+  DestroyRef,
   EventEmitter,
+  inject,
   OnInit,
   Output,
 } from '@angular/core';
@@ -11,6 +13,7 @@ import { environment } from '../../../../../environments/environment';
 import { ProfileService } from '../../../../services/admin-services/profile.service';
 import { UserService } from '../../../../services/admin-services/user.service';
 import { userPhotoUrl } from '../../../../core/utils/api-url.util';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-navbar',
@@ -20,18 +23,24 @@ import { userPhotoUrl } from '../../../../core/utils/api-url.util';
 })
 export class NavbarComponent implements OnInit, AfterViewInit {
   navbarPhoto = 'assets/img/avatars/default.jpg';
+  private destroyRef = inject(DestroyRef);
 
   @Output() logoutEvent = new EventEmitter<boolean>();
   constructor(
     private router: Router,
     private profileService: ProfileService,
-    private userService: UserService,
   ) {}
 
   ngOnInit(): void {
-    if (this.userService.isLoggedIn()) {
-      this.loadNavbarUser();
-    }
+    this.loadNavbarUser();
+
+    this.profileService.profilePhoto$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((photo) => {
+        if (photo) {
+          this.navbarPhoto = photo;
+        }
+      });
   }
 
   ngAfterViewInit(): void {
@@ -40,9 +49,11 @@ export class NavbarComponent implements OnInit, AfterViewInit {
       feather.replace();
     }
   }
-
   signOut() {
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
+
+    this.profileService.updateProfilePhoto('assets/img/avatars/default.jpg');
 
     this.logoutEvent.emit(false);
     this.router.navigate(['/login']);
@@ -65,7 +76,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 
         this.navbarPhoto = user.photo
           ? // ? `${environment.apiUrl}/user/photo/${user.id}?t=${Date.now()}`
-            userPhotoUrl(user.id)
+            userPhotoUrl(user.id, true)
           : 'assets/img/avatars/default.jpg';
       },
       error: () => {

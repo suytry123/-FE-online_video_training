@@ -72,12 +72,14 @@ export class SignupComponent implements OnInit {
 
     this.userService.signUp(request).subscribe({
       next: () => {
-        this.successMsg = 'Registration successful! You can now log in.';
+        // this.successMsg = 'Registration successful! You can now log in.';
+        this.successMsg =
+          'Registration successful! Please check your email and verify your account.';
         this.signupForm.reset();
         this.submitted = false;
         setTimeout(() => {
           this.router.navigate(['/login']);
-        }, 1500);
+        }, 5000);
       },
       error: (err) => {
         if (err.status === 409) {
