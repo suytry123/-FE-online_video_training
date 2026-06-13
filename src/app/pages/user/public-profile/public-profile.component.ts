@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { ProfileService } from '../../../services/admin-services/profile.service';
-import { environment } from '../../../../environments/environment';
 import { userPhotoUrl } from '../../../core/utils/api-url.util';
 import { UserProfile } from '../../../models/user-profile.model';
 import { ToastrService } from 'ngx-toastr';

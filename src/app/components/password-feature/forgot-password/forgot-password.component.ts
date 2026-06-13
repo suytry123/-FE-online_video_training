@@ -1,28 +1,58 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserService } from '../../services/admin-services/user.service';
+import { UserService } from '../../../services/admin-services/user.service';
+import { AuthService } from '../../../services/admin-services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.component.html',
   styleUrls: ['./forgot-password.component.css'],
-  standalone: false
+  standalone: false,
 })
-export class ForgotPasswordComponent {
-  forgotForm: FormGroup;
-  otpForm: FormGroup;
-  submitted = false;
-  otpSent = false;
-  successMsg = '';
-  errorMsg = '';
+export class ForgotPasswordComponent implements OnInit {
+  loading = false;
+  forgotPasswordForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private userService: UserService) {
-    this.forgotForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]]
+  successMessage = '';
+
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private toastr: ToastrService,
+  ) {}
+
+  ngOnInit(): void {
+    this.forgotPasswordForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
     });
-    this.otpForm = this.fb.group({
-      otp: ['', [Validators.required]],
-      newPassword: ['', [Validators.required, Validators.minLength(6)]]
+  }
+
+  submit() {
+    if (this.forgotPasswordForm.invalid) {
+      return;
+    }
+
+    if (this.loading) return;
+
+    this.loading = true;
+
+    // const email = this.forgotPasswordForm.value.email.trim();
+    const email = this.forgotPasswordForm.get('email')?.value?.trim() ?? '';
+
+    this.authService.forgotPassword(email).subscribe({
+      next: () => {
+        this.loading = false;
+
+        this.successMessage =
+          'If the email exists, a reset link has been sent.';
+      },
+
+      error: () => {
+        this.loading = false;
+
+        this.toastr.error('Something went wrong');
+      },
     });
   }
 

@@ -4,7 +4,7 @@ import { UserComponent } from './components/user/user.component';
 import { AdminCategoryListComponent } from './components/admin/UI/category/admin-category-list/admin-category-list.component';
 import { AdminCategoryFormComponent } from './components/admin/UI/category/admin-category-form/admin-category-form.component';
 import { LoginComponent } from './components/login/login.component';
-import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { ForgotPasswordComponent } from './components/password-feature/forgot-password/forgot-password.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { AdminCourseFormComponent } from './components/admin/UI/course/admin-course-form/admin-course-form.component';
 import { AdminCourseListComponent } from './components/admin/UI/course/admin-course-list/admin-course-list.component';
@@ -24,7 +24,13 @@ import { AdminCourseTrashComponent } from './components/admin/UI/course/admin-co
 import { AdminVideoTrashComponent } from './components/admin/UI/video/admin-video-trash/admin-video-trash.component';
 import { AdminProfileComponent } from './pages/admin/admin-profile/admin-profile.component';
 import { PublicProfileComponent } from './pages/user/public-profile/public-profile.component';
-import { UserVerificationEmailComponent } from './pages/auth/user-verification-email/user-verification-email.component';
+import { ResetPasswordComponent } from './components/password-feature/reset-password/reset-password.component';
+import { VerificationFailedComponent } from './components/password-feature/verification-failed/verification-failed.component';
+import { VerificationSuccessComponent } from './components/password-feature/verification-success/verification-success.component';
+import { ResendVerificationComponent } from './components/password-feature/resend-verification/resend-verification.component';
+import { AuthorApplicationComponent } from './components/features/author/pages/author-application/author-application.component';
+import { VerifyEmailComponent } from './components/features/auth/pages/verify-email/verify-email.component';
+import { AuthorApplicationManagementComponent } from './components/features/admin/pages/author-application-management/author-application-management.component';
 
 const routes: Routes = [
   {
@@ -43,14 +49,32 @@ const routes: Routes = [
         component: PublicProfileComponent,
         canActivate: [authGuard],
       },
+      {
+        path: 'author-application',
+        component: AuthorApplicationComponent,
+        canActivate: [authGuard],
+      },
     ],
   },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'reset-password', component: ResetPasswordComponent },
+  {
+    path: 'verification-success',
+    component: VerificationSuccessComponent,
+  },
+  {
+    path: 'verification-failed',
+    component: VerificationFailedComponent,
+  },
+  {
+    path: 'resend-verification',
+    component: ResendVerificationComponent,
+  },
   {
     path: 'verify-email',
-    component: UserVerificationEmailComponent,
+    component: VerifyEmailComponent,
   },
   {
     path: 'admin',
@@ -61,6 +85,11 @@ const routes: Routes = [
       { path: 'dashboard', component: AdminDashboardComponent },
       { path: 'user', component: UserComponent, canActivate: [adminGuard] },
       { path: 'profile', component: AdminProfileComponent },
+      {
+        path: 'author-application-management',
+        component: AuthorApplicationManagementComponent,
+        canActivate: [adminGuard],
+      },
       {
         path: 'category',
         children: [

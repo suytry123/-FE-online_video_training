@@ -45,7 +45,14 @@ import { AdminCourseTrashComponent } from './components/admin/UI/course/admin-co
 import { AdminVideoTrashComponent } from './components/admin/UI/video/admin-video-trash/admin-video-trash.component';
 import { AdminProfileComponent } from './pages/admin/admin-profile/admin-profile.component';
 import { PublicProfileComponent } from './pages/user/public-profile/public-profile.component';
-import { UserVerificationEmailComponent } from './pages/auth/user-verification-email/user-verification-email.component';
+import { ResetPasswordComponent } from './components/password-feature/reset-password/reset-password.component';
+import { ForgotPasswordComponent } from './components/password-feature/forgot-password/forgot-password.component';
+import { VerificationSuccessComponent } from './components/password-feature/verification-success/verification-success.component';
+import { VerificationFailedComponent } from './components/password-feature/verification-failed/verification-failed.component';
+import { ResendVerificationComponent } from './components/password-feature/resend-verification/resend-verification.component';
+import { AuthorApplicationComponent } from './components/features/author/pages/author-application/author-application.component';
+import { VerifyEmailComponent } from './components/features/auth/pages/verify-email/verify-email.component';
+import { AuthorApplicationManagementComponent } from './components/features/admin/pages/author-application-management/author-application-management.component';
 
 @NgModule({
   declarations: [
@@ -86,7 +93,14 @@ import { UserVerificationEmailComponent } from './pages/auth/user-verification-e
     AdminVideoTrashComponent,
     AdminProfileComponent,
     PublicProfileComponent,
-    UserVerificationEmailComponent,
+    ResetPasswordComponent,
+    ForgotPasswordComponent,
+    VerificationSuccessComponent,
+    VerificationFailedComponent,
+    ResendVerificationComponent,
+    AuthorApplicationComponent,
+    VerifyEmailComponent,
+    AuthorApplicationManagementComponent,
   ],
   imports: [
     BrowserModule,

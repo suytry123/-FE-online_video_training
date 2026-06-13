@@ -8,7 +8,7 @@ import { UserProfile } from '../../models/user-profile.model';
   providedIn: 'root',
 })
 export class ProfileService {
-  private readonly api = `${environment.apiUrl}/user`;
+  private readonly api = `${environment.apiUrl}/users`;
   private profilePhotoSource = new BehaviorSubject<string>(
     'assets/img/avatars/default.jpg',
   );

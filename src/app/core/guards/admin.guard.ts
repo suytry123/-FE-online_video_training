@@ -1,12 +1,12 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { UserService } from '../../services/admin-services/user.service';
+import { AuthService } from '../../services/admin-services/auth.service';
 
 export const adminGuard: CanActivateFn = (route, state) => {
-  const userService = inject(UserService);
+  const authService = inject(AuthService);
   const router = inject(Router);
 
-  const roles = userService.getRoles();
+  const roles = authService.getRoles();
 
   if (roles.includes('ADMIN')) {
     return true;

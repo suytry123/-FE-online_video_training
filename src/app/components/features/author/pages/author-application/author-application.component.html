@@ -1,0 +1,143 @@
+<div class="container">
+  <div class="card shadow">
+    <div class="card-header">
+      <h4>Author Application</h4>
+    </div>
+
+    <div class="card-body">
+      <form [formGroup]="authorForm">
+        <div class="mb-3">
+          <label class="form-label">Education</label>
+
+          <input type="text" class="form-control" formControlName="education" />
+
+          <div
+            class="text-danger mt-1"
+            *ngIf="f['education'].touched && f['education'].invalid"
+          >
+            <small *ngIf="f['education'].errors?.['required']">
+              Education is required.
+            </small>
+
+            <small *ngIf="f['education'].errors?.['minlength']">
+              Minimum 5 characters.
+            </small>
+
+            <small *ngIf="f['education'].errors?.['maxlength']">
+              Maximum 200 characters.
+            </small>
+
+            <small *ngIf="f['education'].errors?.['pattern']">
+              Cannot contain only spaces.
+            </small>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Address</label>
+
+          <input type="text" class="form-control" formControlName="address" />
+
+          <div
+            class="text-danger mt-1"
+            *ngIf="f['address'].touched && f['address'].invalid"
+          >
+            <small *ngIf="f['address'].errors?.['required']">
+              Address is required.
+            </small>
+
+            <small *ngIf="f['address'].errors?.['minlength']">
+              Minimum 5 characters.
+            </small>
+
+            <small *ngIf="f['address'].errors?.['maxlength']">
+              Maximum 255 characters.
+            </small>
+
+            <small *ngIf="f['address'].errors?.['pattern']">
+              Cannot contain only spaces.
+            </small>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label"> Bio </label>
+
+          <textarea rows="5" class="form-control" formControlName="authorBio">
+          </textarea>
+
+          <small class="text-muted">
+            {{ f["authorBio"].value?.length || 0 }}/1000
+          </small>
+
+          <div
+            class="text-danger mt-1"
+            *ngIf="f['authorBio'].touched && f['authorBio'].invalid"
+          >
+            <small *ngIf="f['authorBio'].errors?.['required']">
+              Bio is required.
+            </small>
+
+            <small *ngIf="f['authorBio'].errors?.['minlength']">
+              Bio must contain at least 20 characters.
+            </small>
+
+            <small *ngIf="f['authorBio'].errors?.['maxlength']">
+              Bio cannot exceed 1000 characters.
+            </small>
+
+            <small *ngIf="f['authorBio'].errors?.['pattern']">
+              Cannot contain only spaces.
+            </small>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label"> Expertise </label>
+
+          <textarea
+            rows="5"
+            class="form-control"
+            formControlName="authorExpertise"
+          >
+          </textarea>
+
+          <small class="text-muted">
+            {{ f["authorExpertise"].value?.length || 0 }}/500
+          </small>
+
+          <div
+            class="text-danger mt-1"
+            *ngIf="f['authorExpertise'].touched && f['authorExpertise'].invalid"
+          >
+            <small *ngIf="f['authorExpertise'].errors?.['required']">
+              Expertise is required.
+            </small>
+
+            <small *ngIf="f['authorExpertise'].errors?.['minlength']">
+              Expertise must contain at least 10 characters.
+            </small>
+
+            <small *ngIf="f['authorExpertise'].errors?.['maxlength']">
+              Expertise cannot exceed 500 characters.
+            </small>
+
+            <small *ngIf="f['authorExpertise'].errors?.['pattern']">
+              Cannot contain only spaces.
+            </small>
+          </div>
+        </div>
+        <button
+          type="button"
+          class="btn btn-success"
+          [disabled]="loading || authorForm.invalid"
+          (click)="submit()"
+        >
+          <span *ngIf="loading"> Submitting... </span>
+
+          <span *ngIf="!loading"> Submit Application </span>
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

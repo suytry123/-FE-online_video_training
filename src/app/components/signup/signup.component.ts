@@ -74,7 +74,7 @@ export class SignupComponent implements OnInit {
       next: () => {
         // this.successMsg = 'Registration successful! You can now log in.';
         this.successMsg =
-          'Registration successful! Please check your email and verify your account.';
+          'Account created successfully. Please check your email and verify your account.';
         this.signupForm.reset();
         this.submitted = false;
         setTimeout(() => {

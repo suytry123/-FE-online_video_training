@@ -1,16 +1,12 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { CourseService } from '../../../../services/admin-services/course.service';
-import { UserService } from '../../../../services/admin-services/user.service';
+import { AuthService } from '../../../../services/admin-services/auth.service';
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css',
-  standalone: false
-
+  standalone: false,
 })
 export class SidebarComponent {
-  constructor(public userService: UserService) {}
-
+  constructor(public authService: AuthService) {}
 }

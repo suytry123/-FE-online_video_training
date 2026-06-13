@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../../services/admin-services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,7 @@ export class LoginComponent implements OnInit {
   // @Output() loginEvent = new EventEmitter<boolean>();
 
   constructor(
-    private userService: UserService,
+    private authService: AuthService,
     private fb: FormBuilder,
     private router: Router,
     private toastr: ToastrService,
@@ -47,13 +48,13 @@ export class LoginComponent implements OnInit {
     }
     const loginData = this.loginForm.value;
     // console.log('Login data:', loginData);
-    this.userService.login(loginData).subscribe({
+    this.authService.login(loginData).subscribe({
       next: (res: HttpResponse<any>) => {
         const token = res.headers.get('Authorization');
         if (token) {
           localStorage.setItem('token', token);
           localStorage.setItem('user', JSON.stringify(res.body));
-          const roles = this.userService.getRoles();
+          const roles = this.authService.getRoles();
           console.log('User roles:', roles);
           // if (role === 'ADMIN' || role === 'AUTHOR') {
           if (roles.includes('ADMIN') || roles.includes('AUTHOR')) {

@@ -144,8 +144,13 @@
             </div>
             <button type="submit" class="btn btn-primary w-100">Sign Up</button>
           </form>
+          <!-- <div *ngIf="successMsg" class="alert alert-success mt-3">
+            {{ successMsg }}
+          </div> -->
           <div *ngIf="successMsg" class="alert alert-success mt-3">
             {{ successMsg }}
+
+            <div class="mt-2">You will be redirected to login shortly.</div>
           </div>
           <div *ngIf="errorMsg" class="alert alert-danger mt-3">
             {{ errorMsg }}

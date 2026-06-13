@@ -11,6 +11,7 @@ import {
 import { UserService } from '../../services/admin-services/user.service';
 import { Router } from '@angular/router';
 import { Toast, ToastrService } from 'ngx-toastr';
+import { AuthService } from '../../services/admin-services/auth.service';
 
 @Component({
   selector: 'app-user',
@@ -26,7 +27,7 @@ export class UserComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private userService: UserService,
+    private authService: AuthService,
     private router: Router,
     private toastrService: ToastrService,
   ) {}
@@ -100,7 +101,7 @@ export class UserComponent implements OnInit {
 
     let data = this.getUserData();
 
-    this.userService.saveUser(data).subscribe(
+    this.authService.saveUser(data).subscribe(
       () => {
         console.log('User save');
 

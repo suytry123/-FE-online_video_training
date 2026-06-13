@@ -74,7 +74,7 @@
                         class="text-danger"
                         *ngIf="password?.errors?.['minlength']"
                       >
-                        Password must be at least 6 characters
+                        Password must be at least 8 characters
                       </small>
                     </div>
                     <div *ngIf="loginError" class="text-danger small mt-2">
@@ -106,19 +106,23 @@
               routerLink="/forgot-password"
               class="link-primary fw-semibold small"
             >
-              <i class="bi bi-question-circle me-1"></i>Forgot password?
+              Forgot password?
             </a>
-            <span class="text-muted small">Don't have an account?</span>
+
+            <a
+              routerLink="/resend-verification"
+              class="link-secondary fw-semibold small"
+            >
+              Resend verification email
+            </a>
+
             <button
               type="button"
               class="btn btn-outline-primary btn-sm ms-2 px-3 rounded-pill"
               (click)="goSignup()"
             >
-              <i class="bi bi-person-plus me-1"></i>Sign up
+              Sign up
             </button>
-            <!-- <a routerLink="/signup" class="btn btn-outline-primary btn-sm ms-2 px-3 rounded-pill">
-                            <i class="bi bi-person-plus me-1"></i>Sign up
-                        </a> -->
           </div>
         </div>
       </div>
