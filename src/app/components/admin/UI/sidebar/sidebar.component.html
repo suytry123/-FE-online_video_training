@@ -92,6 +92,20 @@
         </a>
       </li>
 
+      <li
+        class="sidebar-item"
+        routerLinkActive="active"
+        *ngIf="authService.getRoles().includes('ADMIN')"
+      >
+        <a
+          class="sidebar-link"
+          routerLink="/admin/author-application-management"
+        >
+          <i class="align-middle" data-feather="user-check"></i>
+          <span class="align-middle">Author Applications</span>
+        </a>
+      </li>
+
       <li class="sidebar-header">Plugins & Addons</li>
 
       <li class="sidebar-item">
