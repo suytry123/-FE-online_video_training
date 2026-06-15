@@ -24,11 +24,24 @@ export class UserService {
     });
   }
 
-  submitAuthorApplication(data: AuthorApplicationRequest) {
+  /*submitAuthorApplication(data: AuthorApplicationRequest) {
     return this.http.post<AuthorApplicationResponse>(
       `${this.url}users/author-applications`,
       data,
     );
+  }*/
+
+  submitAuthorApplication(formData: FormData) {
+    return this.http.post<AuthorApplicationResponse>(
+      `${this.url}users/author-applications`,
+      formData,
+    );
+  }
+
+  getAuthorApplicationCv(id: number): Observable<Blob> {
+    return this.http.get(`${this.url}users/author-applications/${id}/cv`, {
+      responseType: 'blob',
+    });
   }
 
   verifyEmail(token: string) {
@@ -40,7 +53,7 @@ export class UserService {
 
   approveAuthorApplication(id: number): Observable<string> {
     return this.http.post(
-      `${environment.apiUrl}/users/author-applications/${id}/approve`,
+      `${this.url}users/author-applications/${id}/approve`,
       {},
       { responseType: 'text' },
     );
@@ -48,7 +61,7 @@ export class UserService {
 
   rejectAuthorApplication(id: number): Observable<string> {
     return this.http.post(
-      `${environment.apiUrl}/users/author-applications/${id}/reject`,
+      `${this.url}users/author-applications/${id}/reject`,
       {},
       { responseType: 'text' },
     );
@@ -56,7 +69,7 @@ export class UserService {
 
   getAuthorApplications(params: any) {
     return this.http.get<PageResponse<AuthorApplicationResponse>>(
-      `${environment.apiUrl}/users/author-applications`,
+      `${this.url}users/author-applications`,
       { params },
     );
   }

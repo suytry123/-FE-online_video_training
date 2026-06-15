@@ -26,6 +26,7 @@ export class AuthorApplicationManagementComponent implements OnInit {
   status = '';
   loading = false;
   processing = false;
+  viewingCv = false;
 
   constructor(
     private readonly userService: UserService,
@@ -174,5 +175,33 @@ export class AuthorApplicationManagementComponent implements OnInit {
       this.pageNumber++;
       this.loadApplications();
     }
+  }
+
+  viewCv(applicationId: number): void {
+    if (this.viewingCv) {
+      return;
+    }
+
+    this.viewingCv = true;
+
+    this.userService
+      .getAuthorApplicationCv(applicationId)
+      .pipe(
+        finalize(() => {
+          this.viewingCv = false;
+        }),
+      )
+      .subscribe({
+        next: (blob) => {
+          const url = URL.createObjectURL(blob);
+
+          window.open(url, '_blank');
+
+          setTimeout(() => URL.revokeObjectURL(url), 1000);
+        },
+        error: () => {
+          this.toastr.error('Failed to open CV');
+        },
+      });
   }
 }

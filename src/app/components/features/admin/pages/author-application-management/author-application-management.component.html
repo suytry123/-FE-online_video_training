@@ -65,6 +65,7 @@
             <th>Bio</th>
             <th>Expertise</th>
             <th>Status</th>
+            <th>CV</th>
             <th width="180">Action</th>
           </tr>
         </thead>
@@ -75,9 +76,17 @@
               <strong>{{ app.username }}</strong>
             </td>
 
-            <td>{{ app.education }}</td>
+            <td>
+              <div class="text-ellipsis" [title]="app.education">
+                {{ app.education }}
+              </div>
+            </td>
 
-            <td>{{ app.address }}</td>
+            <td>
+              <div class="text-ellipsis" [title]="app.address">
+                {{ app.address }}
+              </div>
+            </td>
 
             <td>
               <div class="text-ellipsis" [title]="app.authorBio">
@@ -111,6 +120,17 @@
             <td>
               <button
                 type="button"
+                class="btn btn-info btn-sm"
+                (click)="viewCv(app.applicationId)"
+                [disabled]="processing"
+              >
+                View CV
+              </button>
+            </td>
+
+            <td>
+              <button
+                type="button"
                 class="btn btn-success btn-sm me-2"
                 (click)="approve(app.applicationId)"
                 [disabled]="app.status !== 'PENDING' || processing"
@@ -130,7 +150,7 @@
           </tr>
 
           <tr *ngIf="applications.length === 0">
-            <td colspan="7" class="text-center text-muted">
+            <td colspan="8" class="text-center text-muted">
               No applications found
             </td>
           </tr>

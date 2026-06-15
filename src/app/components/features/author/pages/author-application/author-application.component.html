@@ -127,10 +127,32 @@
             </small>
           </div>
         </div>
+        <div class="mb-3">
+          <label class="form-label">
+            CV (PDF only) <span class="text-danger">*</span>
+          </label>
+          <div class="mt-2 text-success" *ngIf="selectedCvFile">
+            Selected:
+            {{ selectedCvFile.name }}
+            ({{ (selectedCvFile.size / 1024 / 1024).toFixed(2) }} MB)
+          </div>
+          <input
+            type="file"
+            class="form-control"
+            accept=".pdf"
+            (change)="onCvSelected($event)"
+          />
+
+          <small class="text-muted"> PDF only, maximum 5MB. </small>
+
+          <div class="text-danger mt-1" *ngIf="selectedCvError">
+            {{ selectedCvError }}
+          </div>
+        </div>
         <button
           type="button"
           class="btn btn-success"
-          [disabled]="loading || authorForm.invalid"
+          [disabled]="loading || authorForm.invalid || !selectedCvFile"
           (click)="submit()"
         >
           <span *ngIf="loading"> Submitting... </span>
