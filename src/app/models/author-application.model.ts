@@ -17,3 +17,10 @@ export interface AuthorApplicationResponse {
   submittedAt: string;
   message: string;
 }
+
+export interface AuthorApplicationSearchParams {
+  pageNumber: number;
+  pageLimit: number;
+  username?: string;
+  status?: string;
+}

@@ -16,7 +16,11 @@
       </div>
 
       <div class="col-md-3">
-        <select class="form-select" [(ngModel)]="status">
+        <select
+          class="form-select"
+          [(ngModel)]="status"
+          (change)="loadApplications(true)"
+        >
           <option value="">All Status</option>
           <option value="PENDING">Pending</option>
           <option value="APPROVED">Approved</option>
@@ -25,15 +29,20 @@
       </div>
 
       <div class="col-md-2">
-        <button class="btn btn-primary w-100" (click)="loadApplications(true)">
+        <button
+          type="button"
+          class="btn btn-primary w-100"
+          (click)="loadApplications(true)"
+        >
           Search
         </button>
       </div>
 
       <div class="col-md-2">
         <button
+          type="button"
           class="btn btn-secondary w-100"
-          (click)="username = ''; status = ''; loadApplications()"
+          (click)="resetFilters()"
         >
           Reset
         </button>
@@ -61,7 +70,7 @@
         </thead>
 
         <tbody>
-          <tr *ngFor="let app of applications">
+          <tr *ngFor="let app of applications; trackBy: trackByApplicationId">
             <td>
               <strong>{{ app.username }}</strong>
             </td>
@@ -71,29 +80,13 @@
             <td>{{ app.address }}</td>
 
             <td>
-              <div
-                style="
-                  max-width: 250px;
-                  white-space: nowrap;
-                  overflow: hidden;
-                  text-overflow: ellipsis;
-                "
-                [title]="app.authorBio"
-              >
+              <div class="text-ellipsis" [title]="app.authorBio">
                 {{ app.authorBio }}
               </div>
             </td>
 
             <td>
-              <div
-                style="
-                  max-width: 250px;
-                  white-space: nowrap;
-                  overflow: hidden;
-                  text-overflow: ellipsis;
-                "
-                [title]="app.authorExpertise"
-              >
+              <div class="text-ellipsis" [title]="app.authorExpertise">
                 {{ app.authorExpertise }}
               </div>
             </td>
@@ -117,17 +110,19 @@
 
             <td>
               <button
+                type="button"
                 class="btn btn-success btn-sm me-2"
                 (click)="approve(app.applicationId)"
-                [disabled]="app.status !== 'PENDING'"
+                [disabled]="app.status !== 'PENDING' || processing"
               >
                 Approve
               </button>
 
               <button
+                type="button"
                 class="btn btn-danger btn-sm"
                 (click)="reject(app.applicationId)"
-                [disabled]="app.status !== 'PENDING'"
+                [disabled]="app.status !== 'PENDING' || processing"
               >
                 Reject
               </button>
@@ -149,9 +144,10 @@
       *ngIf="!loading && totalPages > 0"
     >
       <button
+        type="button"
         class="btn btn-outline-primary"
         [disabled]="pageNumber === 0"
-        (click)="pageNumber = pageNumber - 1; loadApplications()"
+        (click)="previousPage()"
       >
         Previous
       </button>
@@ -159,9 +155,10 @@
       <span> Page {{ pageNumber + 1 }} of {{ totalPages }} </span>
 
       <button
+        type="button"
         class="btn btn-outline-primary"
         [disabled]="pageNumber + 1 >= totalPages"
-        (click)="pageNumber = pageNumber + 1; loadApplications()"
+        (click)="nextPage()"
       >
         Next
       </button>
