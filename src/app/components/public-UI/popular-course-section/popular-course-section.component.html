@@ -1,5 +1,8 @@
 <div class="row g-4">
-  <div class="col-lg-4 col-md-6" *ngFor="let course of courses">
+  <div
+    class="col-lg-4 col-md-6"
+    *ngFor="let course of courses; trackBy: trackByCourseId"
+  >
     <div class="card border-0 shadow-sm h-100">
       <img
         [src]="getImageUrl(course.id)"
@@ -28,8 +31,14 @@
         </p>
 
         <div class="d-flex justify-content-between align-items-center mt-auto">
-          <strong class="text-warning fs-5"> ${{ course.price }} </strong>
-
+          <strong
+            class="fs-5"
+            [ngClass]="
+              course.courseType === 'FREE' ? 'text-success' : 'text-warning'
+            "
+          >
+            {{ course.courseType === "FREE" ? "FREE" : "$" + course.price }}
+          </strong>
           <button
             class="btn btn-dark btn-sm"
             [routerLink]="['/courses', course.id]"

@@ -11,6 +11,8 @@ export interface CourseSummary {
   imageCover?: string;
   price: number;
 
+  courseType: 'FREE' | 'PAID';
+
   liked: boolean;
   viewed?: boolean;
 }

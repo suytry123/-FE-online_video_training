@@ -19,6 +19,9 @@ export interface CourseDetail {
 
   liked: boolean;
 
+  price: number;
+  courseType: 'FREE' | 'PAID';
+
   authorName: string;
 
   categoryName: string;

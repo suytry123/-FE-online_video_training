@@ -3,6 +3,7 @@ import { PublicCourseService } from '../../../services/public-services/public-co
 import { ActivatedRoute } from '@angular/router';
 import { CourseDetail, VideoDTO } from '../../../models/course-detail.model';
 import { SafeResourceUrl } from '@angular/platform-browser';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-public-course-detail',
@@ -13,20 +14,22 @@ import { SafeResourceUrl } from '@angular/platform-browser';
 })
 export class PublicCourseDetailComponent implements OnInit {
   courseId!: number;
+  isLoading = true;
   course?: CourseDetail;
-  liked = false;
-  selectedVideo!: VideoDTO;
-  selectedLink: string = '';
+  // liked = false;
+  selectedVideo?: VideoDTO;
+  selectedLink?: string;
 
   constructor(
     private route: ActivatedRoute,
     private publicCourseService: PublicCourseService,
+    private toastrService: ToastrService,
   ) {}
 
   ngOnInit(): void {
     this.courseId = Number(this.route.snapshot.paramMap.get('id'));
 
-    this.publicCourseService.addView(this.courseId).subscribe();
+    // this.publicCourseService.addView(this.courseId).subscribe();
     this.loadCourse(this.courseId);
   }
 
@@ -36,14 +39,17 @@ export class PublicCourseDetailComponent implements OnInit {
         this.course = res;
         console.log(this.course);
 
-        if (this.course.videos.length > 0) {
+        if (this.course?.videos?.length) {
           this.selectedVideo = this.course.videos[0];
 
           this.selectedLink = this.selectedVideo.videoLink?.[0];
         }
+        this.isLoading = false;
       },
 
       error: (err) => {
+        this.isLoading = false;
+        this.toastrService.error('Failed to load course');
         console.log(err);
       },
     });
@@ -54,18 +60,19 @@ export class PublicCourseDetailComponent implements OnInit {
       return;
     }
 
-    if (this.liked) {
+    if (this.course?.liked) {
       this.publicCourseService.unlikeCourse(this.course.id).subscribe({
         next: () => {
-          this.liked = false;
+          this.course!.liked = false;
 
-          this.course!.likes--;
+          // this.course!.likes--;
+          this.course!.likes = Math.max(0, this.course!.likes - 1);
         },
       });
     } else {
       this.publicCourseService.likeCourse(this.course.id).subscribe({
         next: () => {
-          this.liked = true;
+          this.course!.liked = true;
 
           this.course!.likes++;
         },

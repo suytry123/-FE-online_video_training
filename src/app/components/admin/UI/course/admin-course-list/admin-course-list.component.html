@@ -26,10 +26,10 @@
           <div class="d-flex align-items-center">
             <label class="me-2 mb-0">Show</label>
             <select
-              (change)="getCoursesByLimit($event)"
-              class="form-select form-select-sm w-auto shadow-none"
+              [ngModel]="pageSize"
+              (ngModelChange)="getCoursesByLimit($event)"
             >
-              <option [value]="5" selected>5</option>
+              <option [value]="5">5</option>
               <option [value]="10">10</option>
               <option [value]="15">15</option>
             </select>
@@ -41,7 +41,9 @@
             <thead class="table-light">
               <tr>
                 <th class="text-center">#</th>
+                <th>Image</th>
                 <th>CourseName</th>
+                <th>Type</th>
                 <th>Price</th>
                 <th>CategoryName</th>
                 <th>AuthorName</th>
@@ -51,8 +53,40 @@
             <tbody>
               <tr *ngFor="let course of courses; let i = index">
                 <td class="text-center">{{ i + 1 }}</td>
+                <td>
+                  <img
+                    [src]="courseImageUrl(course.id)"
+                    width="80"
+                    height="50"
+                    class="rounded border object-fit-cover"
+                    alt="Course Image"
+                    (error)="onImageError($event)"
+                  />
+                </td>
                 <td>{{ course.name }}</td>
-                <td>{{ course.price }}</td>
+                <td>
+                  <span
+                    class="badge"
+                    [ngClass]="{
+                      'bg-success': course.courseType === 'FREE',
+                      'bg-primary': course.courseType === 'PAID',
+                    }"
+                  >
+                    {{ course.courseType }}
+                  </span>
+                </td>
+                <td>
+                  <span
+                    *ngIf="course.courseType === 'FREE'"
+                    class="text-success fw-bold"
+                  >
+                    FREE
+                  </span>
+
+                  <span *ngIf="course.courseType === 'PAID'">
+                    ${{ course.price }}
+                  </span>
+                </td>
                 <td>{{ course.categoryName }}</td>
                 <td>{{ course.authorName }}</td>
                 <td class="text-center">
@@ -77,7 +111,7 @@
                 </td>
               </tr>
               <tr *ngIf="!courses || courses.length === 0">
-                <td colspan="5" class="text-center text-muted py-4">
+                <td colspan="8" class="text-center text-muted py-4">
                   No courses found.
                 </td>
               </tr>

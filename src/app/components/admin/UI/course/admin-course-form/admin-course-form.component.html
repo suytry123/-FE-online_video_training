@@ -12,11 +12,7 @@
             <div class="mb-3">
               <label class="form-label">Category</label>
 
-              <select
-                class="form-select"
-                formControlName="categoryId"
-                (change)="onCategoryChange($event)"
-              >
+              <select class="form-select" formControlName="categoryId">
                 <option [ngValue]="null" disabled>Select Category</option>
 
                 <option *ngFor="let c of categories" [value]="c.id">
@@ -67,6 +63,15 @@
             </div>
 
             <div class="mb-3">
+              <label class="form-label">Course Type</label>
+
+              <select class="form-select" formControlName="courseType">
+                <option value="FREE">Free Course</option>
+                <option value="PAID">Paid Course</option>
+              </select>
+            </div>
+
+            <div class="mb-3">
               <label class="form-label">Description</label>
 
               <textarea
@@ -111,6 +116,13 @@
                 placeholder="Enter price"
               />
 
+              <small
+                class="text-muted"
+                *ngIf="courseForm.get('courseType')?.value === 'FREE'"
+              >
+                Free courses always have price = 0
+              </small>
+
               <div
                 *ngIf="
                   courseForm.get('price')?.touched &&
@@ -123,7 +135,7 @@
                 </small>
 
                 <small *ngIf="courseForm.get('price')?.errors?.['min']">
-                  Price must be >= 0
+                  Price must be greater than 0
                 </small>
               </div>
             </div>

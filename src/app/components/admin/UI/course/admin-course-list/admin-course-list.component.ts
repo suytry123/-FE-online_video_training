@@ -2,6 +2,9 @@ import { HttpParams } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CourseService } from '../../../../../services/admin-services/course.service';
+import { Course } from '../../../../../models/course-model';
+import { courseImageUrl } from '../../../../../core/utils/api-url.util';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-admin-course-list',
@@ -10,44 +13,61 @@ import { CourseService } from '../../../../../services/admin-services/course.ser
   standalone: false,
 })
 export class AdminCourseListComponent {
-  courses!: any[];
+  courseImageUrl = courseImageUrl;
+  courses: Course[] = [];
+  pageSize = 5;
 
   constructor(
     private courseService: CourseService,
     private router: Router,
+    private toastrService: ToastrService,
   ) {}
 
   ngOnInit(): void {
     // let param = new HttpParams().append('pageLimit', 5);
     // this.loadCourses();
-    let param = new HttpParams().append('_page', 1).append('_limit', 5);
+    const param = new HttpParams()
+      .append('_page', '1')
+      .append('_limit', String(this.pageSize));
     this.getCourses(param);
   }
 
   private getCourses(param: HttpParams) {
     const token = localStorage.getItem('token');
     if (!token) {
-      alert('No authentication token found. Please log in first.');
+      this.toastrService.error(
+        'No authentication token found. Please log in first.',
+      );
       this.courses = [];
       return;
     }
-    this.courseService.getCourseList(param).subscribe(
-      (res) => {
+    this.courseService.getCourseList(param).subscribe({
+      next: (res) => {
         this.courses = Array.isArray(res.list) ? res.list : [];
       },
-      (err) => {
+      error: (err) => {
         this.courses = [];
-        alert(
+        this.toastrService.error(
           'Failed to fetch courses. Please check your connection or contact admin.',
         );
         console.error('Fetch courses error:', err);
       },
-    );
+    });
   }
 
-  getCoursesByLimit(limitCombobox: any) {
+  /*getCoursesByLimit(limitCombobox: any) {
     let limit = limitCombobox.target.value;
     let param = new HttpParams().append('_limit', limit);
+    this.getCourses(param);
+  }*/
+
+  getCoursesByLimit(limit: number) {
+    this.pageSize = Number(limit);
+
+    const param = new HttpParams()
+      .append('_page', '1')
+      .append('_limit', String(this.pageSize));
+
     this.getCourses(param);
   }
 
@@ -68,14 +88,22 @@ export class AdminCourseListComponent {
 
     this.courseService.deleteCourse(id).subscribe({
       next: () => {
-        console.log('Deleted successfully');
-
-        let param = new HttpParams().append('_page', 1).append('_limit', 5);
+        this.toastrService.success('Course deleted successfully');
+        const param = new HttpParams()
+          .append('_page', '1')
+          .append('_limit', String(this.pageSize));
 
         this.getCourses(param);
       },
-      error: (err) => console.error(err),
+      error: (err) => {
+        this.toastrService.error('Failed to delete course');
+        console.error(err);
+      },
     });
+  }
+
+  onImageError(event: Event): void {
+    (event.target as HTMLImageElement).src = 'assets/img/avatars/default.jpg';
   }
 
   /*delete(id: number): void {

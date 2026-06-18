@@ -6,6 +6,7 @@ import { UserService } from '../../../services/admin-services/user.service';
 import { VideoDTO } from '../../../models/course-detail.model';
 import { environment } from '../../../../environments/environment';
 import { courseImageUrl } from '../../../core/utils/api-url.util';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-public-course-list',
@@ -16,11 +17,13 @@ import { courseImageUrl } from '../../../core/utils/api-url.util';
 export class PublicCourseListComponent implements OnInit {
   courses: CourseSummary[] = [];
   getImageUrl = courseImageUrl;
+  isLoading = true;
 
   constructor(
     private courseService: PublicCourseService,
     private router: Router,
     private userService: UserService,
+    private toastrService: ToastrService,
   ) {}
 
   ngOnInit(): void {
@@ -35,9 +38,12 @@ export class PublicCourseListComponent implements OnInit {
           liked: false,
           viewed: false,
         }));
+        this.isLoading = false;
       },
       error: (err) => {
         console.log(err);
+        this.toastrService.error('Unable to load courses');
+        this.isLoading = false;
       },
     });
   }
@@ -54,6 +60,7 @@ export class PublicCourseListComponent implements OnInit {
       },
       error: (err) => {
         console.log(err);
+        this.toastrService.error('Failed to like course');
       },
     });
   }
@@ -61,11 +68,13 @@ export class PublicCourseListComponent implements OnInit {
   unlikeCourse(course: CourseSummary): void {
     this.courseService.unlikeCourse(course.id).subscribe({
       next: () => {
-        course.likes--;
+        // course.likes--;
+        course.likes = Math.max(0, course.likes - 1);
         course.liked = false;
       },
       error: (err) => {
         console.log(err);
+        this.toastrService.error('Failed to unlike course');
       },
     });
   }
@@ -93,5 +102,9 @@ export class PublicCourseListComponent implements OnInit {
     } else {
       this.router.navigate(['/courses', course.id]);
     }
+  }
+
+  trackByCourseId(index: number, course: CourseSummary): number {
+    return course.id;
   }
 }

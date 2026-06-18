@@ -1,8 +1,9 @@
 export interface Course {
-  id?: number;
+  id: number;
   name: string;
+  courseDescription: string;
+  courseType: 'FREE' | 'PAID';
   price: number;
-  categoryId?: number;
-  authorId?: number;
-  imageCover?: string;
+  categoryName: string;
+  authorName: string;
 }

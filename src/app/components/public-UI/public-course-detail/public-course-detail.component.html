@@ -1,7 +1,29 @@
-<div class="container mt-4" *ngIf="course">
+<div class="container mt-4" *ngIf="!isLoading && course">
+  <div *ngIf="course.videos.length === 0" class="alert alert-info mt-3">
+    No videos available for this course yet.
+  </div>
   <!-- COURSE INFO -->
 
   <div class="mb-4">
+    <div class="d-flex align-items-center gap-2 mb-3">
+      <span
+        class="badge"
+        [ngClass]="{
+          'bg-success': course.courseType === 'FREE',
+          'bg-primary': course.courseType === 'PAID',
+        }"
+      >
+        {{ course.courseType }}
+      </span>
+
+      <span
+        *ngIf="course.courseType === 'PAID'"
+        class="fw-bold text-primary fs-5"
+      >
+        ${{ course.price }}
+      </span>
+    </div>
+
     <h2 class="fw-bold">
       {{ course.name }}
     </h2>

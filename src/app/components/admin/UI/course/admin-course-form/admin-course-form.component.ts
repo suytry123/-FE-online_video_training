@@ -22,7 +22,7 @@ export class AdminCourseFormComponent implements OnInit {
   isSubmitted = false;
   courseId!: number;
   categories: any[] = [];
-  selectedFile!: File;
+  selectedFile: File | null = null;
   previewUrl: any = null;
 
   constructor(
@@ -45,11 +45,18 @@ export class AdminCourseFormComponent implements OnInit {
         ],
       ],
       courseDescription: ['', [Validators.required, Validators.minLength(10)]],
-      price: [null, [Validators.required, Validators.min(0)]],
+      courseType: ['FREE', Validators.required],
+      price: [0],
       imageCover: [''],
     });
 
     this.loadCategories();
+
+    this.applyCourseTypeBehavior(this.courseForm.get('courseType')?.value);
+
+    this.courseForm.get('courseType')?.valueChanges.subscribe((type) => {
+      this.applyCourseTypeBehavior(type);
+    });
 
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       const id = paramMap.get('id');
@@ -62,6 +69,7 @@ export class AdminCourseFormComponent implements OnInit {
       this.courseService.getById(this.courseId).subscribe(
         (course) => {
           this.courseForm.patchValue(course);
+          this.applyCourseTypeBehavior(course.courseType);
 
           if (course.imageCover) {
             // this.previewUrl = course.imageCover;
@@ -77,7 +85,7 @@ export class AdminCourseFormComponent implements OnInit {
 
   createCourse() {
     this.isSubmitted = true;
-    this.courseService.saveCourse(this.courseForm.value).subscribe({
+    this.courseService.saveCourse(this.courseForm.getRawValue()).subscribe({
       next: (res: any) => {
         console.log(res);
         // upload image after course saved
@@ -90,7 +98,7 @@ export class AdminCourseFormComponent implements OnInit {
               this.resetForm();
 
               this.previewUrl = null;
-              this.selectedFile = undefined as any;
+              this.selectedFile = null;
             },
 
             error: (err) => {
@@ -139,10 +147,10 @@ export class AdminCourseFormComponent implements OnInit {
     );
   }
 
-  onCategoryChange(event: any) {
+  /*onCategoryChange(event: any) {
     const selectedCategoryId = event.target.value;
     this.courseForm.patchValue({ categoryId: selectedCategoryId });
-  }
+  }*/
 
   // createCourse() {
   //   this.courseService.saveCourse(this.courseForm.value).subscribe({
@@ -158,11 +166,19 @@ export class AdminCourseFormComponent implements OnInit {
   // }
 
   resetForm() {
-    this.courseForm.reset();
+    this.courseForm.reset({
+      categoryId: null,
+      name: '',
+      courseDescription: '',
+      courseType: 'FREE',
+      price: 0,
+      imageCover: '',
+    });
+
+    this.applyCourseTypeBehavior('FREE');
 
     this.previewUrl = null;
-
-    this.selectedFile = undefined as any;
+    this.selectedFile = null;
   }
 
   saveCourse() {
@@ -180,7 +196,7 @@ export class AdminCourseFormComponent implements OnInit {
 
   updateCourse() {
     this.isSubmitted = true;
-    this.courseService.updateCourse(this.courseForm.value).subscribe({
+    this.courseService.updateCourse(this.courseForm.getRawValue()).subscribe({
       next: () => {
         // upload new image if selected
         if (this.selectedFile) {
@@ -229,5 +245,20 @@ export class AdminCourseFormComponent implements OnInit {
 
       reader.readAsDataURL(file);
     }
+  }
+
+  private applyCourseTypeBehavior(type: string) {
+    const priceControl = this.courseForm.get('price');
+
+    if (type === 'FREE') {
+      priceControl?.setValue(0);
+      priceControl?.disable();
+      priceControl?.clearValidators();
+    } else {
+      priceControl?.enable();
+      priceControl?.setValidators([Validators.required, Validators.min(0.01)]);
+    }
+
+    priceControl?.updateValueAndValidity();
   }
 }
