@@ -51,12 +51,14 @@ export class PublicProfileComponent implements OnInit {
 
         console.log(this.profile);
         console.log('IMAGE URL:', this.profileImage);
+        console.log(this.profile);
+        console.log(this.profile.gender);
 
         this.profileForm.patchValue({
           username: this.profile.username,
           email: this.profile.email,
           phoneNumber: this.profile.phoneNumber,
-          gender: this.profile.gender,
+          gender: this.profile.gender ?? '',
         });
       },
     });

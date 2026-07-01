@@ -20,6 +20,6 @@ export function userPhotoUrl(id: number, refresh = false): string {
   console.log('environment.apiUrl = ', environment.apiUrl);
 
   return refresh
-    ? `${environment.apiUrl}/user/photo/${id}?t=${Date.now()}`
-    : `${environment.apiUrl}/user/photo/${id}`;
+    ? `${environment.apiUrl}/users/photo/${id}?t=${Date.now()}`
+    : `${environment.apiUrl}/users/photo/${id}`;
 }
